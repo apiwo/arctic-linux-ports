@@ -580,3 +580,4 @@ main	runit	2.2.0	make	BSD-3-Clause	glibc	-	http://smarden.org/runit/	http://smar
 main	dinit	0.19.4	make	Apache-2.0	glibc	-	https://github.com/davmac314/dinit	https://github.com/davmac314/dinit/archive/refs/tags/v{version}.tar.gz	Service manager and init with dependency handling
 profile	arctic-sound	1.0.0	meta	BSD-2-Clause	pipewire,wireplumber,pipewire-pulse,alsa-lib,alsa-utils	-	https://github.com/apiwo/arctic-linux	-	PipeWire, WirePlumber and alsamixer, configured and enabled
 extra	libluv	1.51.0	cmake	Apache-2.0	glibc,libuv,luajit	cmake,ninja	https://github.com/luvit/luv	https://github.com/luvit/luv/releases/download/{version}-0/luv-{version}-0.tar.gz	libuv bindings for Lua, needed by neovim
+profile	lazyvim	1.0.0	meta	MIT	neovim,git	-	https://www.lazyvim.org/	-	Sets up the official LazyVim starter config, on request, per user

@@ -1,0 +1,59 @@
+# lazyvim - the official LazyVim starter config for neovim
+name=lazyvim
+version=1.0.0
+release=1
+desc="Sets up the official LazyVim starter config, on request, per user"
+url="https://www.lazyvim.org/"
+license="MIT"
+depend="neovim git"
+makedepend=""
+source=""
+sha256=""
+
+# There is nothing to build - this ships one script and an install hook.
+# It cannot set up LazyVim itself as part of installing the package: that
+# means moving files under a real user's $HOME, and a package install runs
+# as root with $HOME=/root, not as whichever person is going to use nvim.
+# So it ships lazyvim-setup instead, and each user runs it themselves - the
+# exact steps LazyVim's own install docs give, as a script instead of five
+# lines to copy and paste.
+build() {
+	:
+}
+
+package() {
+	install -Dm755 /dev/stdin "$pkgdir/usr/bin/lazyvim-setup" <<'SETUP'
+#!/bin/sh
+# lazyvim-setup - install the official LazyVim starter config for this user
+#
+# Run as yourself, not root - it acts on your own $HOME.
+set -eu
+
+[ "$(id -u)" != 0 ] || {
+	echo "lazyvim-setup: run this as your own user, not root - it sets up" >&2
+	echo "  nvim for whoever runs it, and root's \$HOME is not that." >&2
+	exit 1
+}
+command -v git >/dev/null 2>&1 || { echo "lazyvim-setup: git is required" >&2; exit 1; }
+
+ts=$(date '+%Y%m%d-%H%M%S')
+backup() {
+	[ -e "$1" ] || return 0
+	mv "$1" "$1.bak-$ts"
+	echo "  backed up $1 -> $1.bak-$ts"
+}
+
+# Required.
+backup "$HOME/.config/nvim"
+# Optional, but recommended by LazyVim's own install docs - stale state or
+# plugin caches from a previous config can otherwise leak into this one.
+backup "$HOME/.local/share/nvim"
+backup "$HOME/.local/state/nvim"
+backup "$HOME/.cache/nvim"
+
+git clone https://github.com/LazyVim/starter "$HOME/.config/nvim"
+rm -rf "$HOME/.config/nvim/.git"
+
+echo "LazyVim installed. Run nvim to finish the plugin sync on first start."
+SETUP
+}

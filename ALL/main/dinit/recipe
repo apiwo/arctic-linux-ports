@@ -1,0 +1,24 @@
+# dinit - Service manager and init with dependency handling
+# Generated from manifest.tsv by gen-ports.py. Edit the manifest, not this file,
+# unless the package needs something the template cannot express - in which case
+# drop a `recipe.local` beside it and it will be preserved.
+name=dinit
+version=0.19.4
+release=1
+desc="Service manager and init with dependency handling"
+url="https://github.com/davmac314/dinit"
+license="Apache-2.0"
+depend="glibc"
+makedepend=""
+source="https://github.com/davmac314/dinit/archive/refs/tags/v0.19.4.tar.gz"
+sha256="SKIP"
+
+build() {
+	cd "dinit-0.19.4"
+	make -j"$JOBS" PREFIX=/usr
+}
+
+package() {
+	cd "dinit-0.19.4"
+	make PREFIX=/usr DESTDIR="$pkgdir" install
+}

@@ -1,0 +1,44 @@
+# s6 - skarnet supervision suite
+name=s6
+version=2.13.2.0
+release=1
+desc="skarnet supervision suite"
+url="https://skarnet.org/software/s6/"
+license="ISC"
+depend="glibc skalibs execline"
+makedepend=""
+source="https://skarnet.org/software/s6/s6-2.13.2.0.tar.gz"
+sha256="SKIP"
+
+# depend= is metadata only - alpm-build does not stage a recipe's declared
+# dependencies onto the build host before running build(). The skarnet chain
+# needs each earlier package's headers and libraries to exist somewhere real
+# at configure time, so this stages them out of the repo itself.
+stage_deps() {
+	STAGE="$ALPM_BUILDROOT/skarnet-stage"
+	mkdir -p "$STAGE"
+	for d in skalibs execline; do
+		pkg=$(ls -t "${ALPM_REPO:-/home/apiwo/arctic-build/repo}"/main/x86_64/"$d"-*.alpmz 2>/dev/null | head -1)
+		[ -n "$pkg" ] || { echo "$d package not found - build it first" >&2; return 1; }
+		tar -xf "$pkg" -C "$STAGE" --exclude=.PKGINFO --exclude=.FILES --exclude=.INSTALL
+	done
+}
+
+build() {
+	stage_deps || exit 1
+	cd "s6-$version"
+	./configure --prefix=/usr --libdir=/usr/lib \
+		--with-include="$STAGE/usr/include" \
+		--with-lib="$STAGE/usr/lib/skalibs" \
+		--with-lib="$STAGE/usr/lib/execline" \
+		--with-lib="$STAGE/usr/lib" \
+		--with-dynlib="$STAGE/usr/lib" \
+		--with-sysdeps="$STAGE/usr/lib/skalibs/sysdeps" \
+		--disable-allstatic
+	make -j"$JOBS"
+}
+
+package() {
+	cd "s6-$version"
+	make DESTDIR="$pkgdir" install
+}

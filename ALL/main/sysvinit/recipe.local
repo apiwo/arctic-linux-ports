@@ -1,0 +1,1 @@
+Hand-written: only src/ builds; man/ needs po4a and is not wanted.

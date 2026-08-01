@@ -1,20 +1,20 @@
-# nano - Simple console editor
+# skalibs - skarnet base library, needed by s6
 # Generated from manifest.tsv by gen-ports.py. Edit the manifest, not this file,
 # unless the package needs something the template cannot express - in which case
 # drop a `recipe.local` beside it and it will be preserved.
-name=nano
-version=9.2
+name=skalibs
+version=2.14.4.0
 release=1
-desc="Simple console editor"
-url="https://nano-editor.org/"
-license="GPL-3.0-or-later"
-depend="glibc netbsd-curses"
+desc="skarnet base library, needed by s6"
+url="https://skarnet.org/software/skalibs/"
+license="ISC"
+depend="glibc"
 makedepend=""
-source="https://www.nano-editor.org/dist/v9/nano-9.2.tar.xz"
+source="https://skarnet.org/software/skalibs/skalibs-2.14.4.0.tar.gz"
 sha256="SKIP"
 
 build() {
-	cd "nano-9.2"
+	cd "skalibs-2.14.4.0"
 	# Not every configure script accepts the same options - sqlite rejects
 	# --disable-nls outright, for instance - so only pass the ones this one
 	# actually advertises. Guessing wrong fails the whole build.
@@ -28,6 +28,6 @@ build() {
 }
 
 package() {
-	cd "nano-9.2"
+	cd "skalibs-2.14.4.0"
 	make DESTDIR="$pkgdir" install
 }

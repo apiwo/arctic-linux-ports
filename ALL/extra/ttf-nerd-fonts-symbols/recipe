@@ -1,7 +1,4 @@
 # ttf-nerd-fonts-symbols - Nerd Font icon glyphs
-# Generated from manifest.tsv by gen-ports.py. Edit the manifest, not this file,
-# unless the package needs something the template cannot express - in which case
-# drop a `recipe.local` beside it and it will be preserved.
 name=ttf-nerd-fonts-symbols
 version=3.4.0
 release=1
@@ -13,12 +10,29 @@ makedepend=""
 source="https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/NerdFontsSymbolsOnly.tar.xz"
 sha256="SKIP"
 
+# The generated template assumed a configure/make build inside a versioned
+# directory. This release is a flat tarball of font files with no wrapper
+# directory and nothing to compile.
+
 build() {
-	cd "NerdFontsSymbolsOnly"
-	make -j"$JOBS" PREFIX=/usr
+	:
 }
 
 package() {
-	cd "NerdFontsSymbolsOnly"
-	make PREFIX=/usr DESTDIR="$pkgdir" install
+	install -d "$pkgdir/usr/share/fonts/TTF"
+	for f in *.ttf; do
+		[ -f "$f" ] || continue
+		install -m644 "$f" "$pkgdir/usr/share/fonts/TTF/"
+	done
+	# fontconfig rule that makes the symbol face the fallback for glyphs no
+	# other installed font covers - without it the icons resolve to boxes.
+	if [ -f 10-nerd-font-symbols.conf ]; then
+		install -Dm644 10-nerd-font-symbols.conf \
+			"$pkgdir/usr/share/fontconfig/conf.avail/10-nerd-font-symbols.conf"
+		install -d "$pkgdir/etc/fonts/conf.d"
+		ln -sf /usr/share/fontconfig/conf.avail/10-nerd-font-symbols.conf \
+			"$pkgdir/etc/fonts/conf.d/10-nerd-font-symbols.conf"
+	fi
+	[ -f LICENSE ] && install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$name/LICENSE"
+	:
 }

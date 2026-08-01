@@ -15,15 +15,11 @@ sha256="SKIP"
 
 build() {
 	cd "busybox-1.38.0"
-	# depend/makedepend in this ports system are package metadata only -
-	# alpm-build does not stage a recipe's own dependencies onto the build
-	# host before running build(). musl-gcc has to actually exist somewhere
-	# on disk already: a real Arctic system with musl installed has it at
-	# /usr/musl; the sandboxed build host does not, so check for a manually
-	# staged copy there too.
-	MUSLGCC=/usr/musl/bin/musl-gcc
-	[ -x "$MUSLGCC" ] || MUSLGCC=/home/apiwo/arctic-build/stage/musl-sysroot/usr/musl/bin/musl-gcc
-	[ -x "$MUSLGCC" ] || { echo "musl-gcc not found - build/stage the musl port first" >&2; exit 1; }
+	# Build this through build/arctic-musl-sandbox, not plain
+	# arctic-sandbox - it's the one that puts a working musl-gcc at
+	# /usr/musl/bin and exports MUSLGCC for exactly this.
+	MUSLGCC="${MUSLGCC:-/usr/musl/bin/musl-gcc}"
+	[ -x "$MUSLGCC" ] || { echo "musl-gcc not found - build with arctic-musl-sandbox" >&2; exit 1; }
 	# busybox's own Makefile assigns CC = gcc unconditionally, which wins
 	# over a plain exported CC - has to go on the make command line to
 	# actually override it, or this silently links against the host's

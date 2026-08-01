@@ -1,7 +1,4 @@
 # ttf-jetbrains-mono - JetBrains Mono, the Arctic terminal font
-# Generated from manifest.tsv by gen-ports.py. Edit the manifest, not this file,
-# unless the package needs something the template cannot express - in which case
-# drop a `recipe.local` beside it and it will be preserved.
 name=ttf-jetbrains-mono
 version=2.304
 release=1
@@ -13,12 +10,26 @@ makedepend=""
 source="https://github.com/JetBrains/JetBrainsMono/releases/download/v2.304/JetBrainsMono-2.304.zip"
 sha256="SKIP"
 
+# The generated template assumed a configure/make build and a versioned top
+# level directory. This is a font release: the zip unpacks straight into
+# fonts/ with no wrapper directory and nothing to compile, so both phases
+# are just copying files into place.
+
 build() {
-	cd "JetBrainsMono-2.304"
-	make -j"$JOBS" PREFIX=/usr
+	:
 }
 
 package() {
-	cd "JetBrainsMono-2.304"
-	make PREFIX=/usr DESTDIR="$pkgdir" install
+	install -d "$pkgdir/usr/share/fonts/TTF"
+	for f in fonts/ttf/*.ttf; do
+		[ -f "$f" ] || continue
+		install -m644 "$f" "$pkgdir/usr/share/fonts/TTF/"
+	done
+	# The variable-weight files render everything the static ones do from a
+	# single face, which is what a terminal actually wants.
+	for f in fonts/variable/*.ttf; do
+		[ -f "$f" ] || continue
+		install -m644 "$f" "$pkgdir/usr/share/fonts/TTF/"
+	done
+	install -Dm644 OFL.txt "$pkgdir/usr/share/licenses/$name/OFL.txt"
 }

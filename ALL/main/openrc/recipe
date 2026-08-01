@@ -1,0 +1,32 @@
+# openrc - Dependency-based init system from Gentoo
+# Generated from manifest.tsv by gen-ports.py. Edit the manifest, not this file,
+# unless the package needs something the template cannot express - in which case
+# drop a `recipe.local` beside it and it will be preserved.
+name=openrc
+version=0.63.2
+release=1
+desc="Dependency-based init system from Gentoo"
+url="https://github.com/OpenRC/openrc"
+license="BSD-2-Clause"
+depend="glibc util-linux-libs"
+makedepend="meson ninja"
+source="https://github.com/OpenRC/openrc/archive/refs/tags/0.63.2.tar.gz"
+sha256="SKIP"
+
+build() {
+	cd "openrc-0.63.2"
+	meson setup build \
+		--prefix=/usr \
+		--libdir=/usr/lib \
+		--sysconfdir=/etc \
+		--localstatedir=/var \
+		--buildtype=release \
+		--wrap-mode=nodownload \
+		-Db_lto=true
+	ninja -C build -j"$JOBS"
+}
+
+package() {
+	cd "openrc-0.63.2"
+	DESTDIR="$pkgdir" ninja -C build install
+}

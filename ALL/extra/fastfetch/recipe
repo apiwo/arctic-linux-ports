@@ -20,8 +20,11 @@ build() {
 package() {
 	DESTDIR="$pkgdir" ninja -C build install
 	# Ship the Arctic mark as fastfetch's logo, plus a matching config.
-	install -Dm644 /usr/share/arctic/ascii/arctic-logo.txt \
-		"$pkgdir/usr/share/fastfetch/logos/arctic.txt"
+	# The source tree, not an installed-system path - nothing has that at
+	# build time, only the source checkout does (ARCTIC_TREE inside the
+	# sandbox, but this also needs to work for a plain unsandboxed clone).
+	logo="${ARCTIC_TREE:-/home/apiwo/arctic}/branding/ascii/arctic-logo.txt"
+	install -Dm644 "$logo" "$pkgdir/usr/share/fastfetch/logos/arctic.txt"
 	mkdir -p "$(dirname $pkgdir/etc/xdg/fastfetch/config.jsonc)"
 cat >"$pkgdir/etc/xdg/fastfetch/config.jsonc" <<-'JSON'
 		{

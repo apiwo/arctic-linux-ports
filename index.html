@@ -24,10 +24,14 @@
 
   <div class="top-grid">
     <div class="pages">
-      <p>Browse</p>
+      <p>Repos</p>
       <ul>
-        <li><a href="/ALL/">all recipes</a></li>
-        <li><a href="https://pkg-arctic.apiwow.net">binary packages</a></li>
+        <li><a href="/ALL/main/">main</a></li>
+        <li><a href="/ALL/extra/">extra</a></li>
+        <li><a href="/ALL/base/">base</a></li>
+        <li><a href="/ALL/kernels/">kernels</a></li>
+        <li><a href="/ALL/musl/">musl</a></li>
+        <li><a href="/ALL/">everything</a></li>
       </ul>
     </div>
     <div class="art">
@@ -59,12 +63,14 @@
 
   <section>
     <h2>What's here</h2>
-    <p>One recipe per package under <a href="/ALL/">/ALL/</a> — everything
-    that alpm can build from source, including packages with no binary on
-    the package mirror yet. Every recipe is a plain POSIX <code>sh</code>
-    file: <code>name</code>, <code>version</code>, <code>source</code>, a
-    <code>build()</code> and a <code>package()</code> function.</p>
-    <p>Build one directly with <code>alpm ins -s &lt;name&gt;</code>.</p>
+    <p>This is the actual <code>ports/</code> tree - the same one Arctic's
+    own build system reads from, organized by repo (main, extra, base,
+    kernels, musl, and so on), one directory per package holding a plain
+    POSIX <code>sh</code> recipe: <code>name</code>, <code>version</code>,
+    <code>source</code>, a <code>build()</code> and a <code>package()</code>
+    function.</p>
+    <p>Clone this repo to get a working <code>ports/</code> checkout, or
+    build one recipe directly with <code>alpm ins -s &lt;name&gt;</code>.</p>
   </section>
 
   <footer>

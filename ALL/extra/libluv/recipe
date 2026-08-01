@@ -1,20 +1,20 @@
-# neovim - Hyperextensible Vim-based editor
+# libluv - libuv bindings for Lua, needed by neovim
 # Generated from manifest.tsv by gen-ports.py. Edit the manifest, not this file,
 # unless the package needs something the template cannot express - in which case
 # drop a `recipe.local` beside it and it will be preserved.
-name=neovim
-version=0.12.2
+name=libluv
+version=1.51.0
 release=1
-desc="Hyperextensible Vim-based editor"
-url="https://neovim.io/"
-license="Apache-2.0 Vim"
-depend="glibc libuv msgpack-c libvterm luajit unibilium tree-sitter libluv"
+desc="libuv bindings for Lua, needed by neovim"
+url="https://github.com/luvit/luv"
+license="Apache-2.0"
+depend="glibc libuv luajit"
 makedepend="cmake ninja"
-source="https://github.com/neovim/neovim/archive/refs/tags/v0.12.2.tar.gz"
+source="https://github.com/luvit/luv/releases/download/1.51.0-0/luv-1.51.0-0.tar.gz"
 sha256="SKIP"
 
 build() {
-	cmake -S "neovim-0.12.2" -B build -G Ninja \
+	cmake -S "luv-1.51.0-0" -B build -G Ninja \
 		-DCMAKE_INSTALL_PREFIX=/usr \
 		-DCMAKE_INSTALL_LIBDIR=lib \
 		-DCMAKE_BUILD_TYPE=Release \

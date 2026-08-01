@@ -17,7 +17,7 @@ main	gcc-libs	15.3.0	autotools	GPL-3.0-or-later WITH GCC-exception-3.1	glibc	-	h
 main	gmake	4.4.1	autotools	GPL-3.0-or-later	glibc	-	https://www.gnu.org/software/make/	https://ftp.gnu.org/gnu/make/make-{version}.tar.gz	GNU make as gmake, for kernel modules; /usr/bin/make is still bmake
 main	libglvnd	1.7.0	meson	MIT	glibc	meson,ninja	https://gitlab.freedesktop.org/glvnd/libglvnd	https://gitlab.freedesktop.org/glvnd/libglvnd/-/archive/v{version}/libglvnd-v{version}.tar.gz	GL vendor dispatch, so mesa and NVIDIA can both provide GL
 main	busybox	1.38.0	make	GPL-2.0-only	glibc	-	https://busybox.net/	https://busybox.net/downloads/busybox-{version}.tar.bz2	Init, getty, device manager and network tools
-musl	busybox-musl	1.38.0	make	GPL-2.0-only	musl	-	https://busybox.net/	https://busybox.net/downloads/busybox-{version}.tar.bz2	Init, getty, device manager and network tools - built against musl
+main	busybox-musl	1.38.0	make	GPL-2.0-only	musl	-	https://busybox.net/	https://busybox.net/downloads/busybox-{version}.tar.bz2	Init, getty, device manager and network tools - built against musl
 main	toybox	0.8.14	make	0BSD	glibc	-	https://landley.net/toybox/	https://landley.net/toybox/downloads/toybox-{version}.tar.gz	The classic Unix commands, BSD licensed
 main	zsh	5.9.2	autotools	MIT-Modern-Variant	glibc,netbsd-curses	clang,lld	https://www.zsh.org/	https://www.zsh.org/pub/zsh-{version}.tar.xz	The Z shell, Arctic's login shell
 main	doas	6.8.2	autotools	ISC	glibc,libxcrypt	clang	https://github.com/Duncaen/OpenDoas	https://github.com/Duncaen/OpenDoas/archive/refs/tags/v{version}.tar.gz	Run commands as another user
@@ -118,7 +118,7 @@ extra	kitty	0.48.2	python	GPL-3.0-only	glibc,harfbuzz,wayland,libpng,freetype,fo
 extra	wezterm	20260401	cargo	MIT	glibc,wayland,libxkbcommon,fontconfig,openssl	rust,cargo	https://wezterm.org/	https://github.com/wez/wezterm/archive/refs/tags/{version}.tar.gz	GPU-accelerated cross-platform terminal
 extra	st	0.9.3	suckless	MIT	glibc,libx11,libxft,freetype,fontconfig	-	https://st.suckless.org/	https://dl.suckless.org/st/st-{version}.tar.gz	The suckless simple terminal
 extra	vim	9.2.0100	autotools	Vim	glibc,netbsd-curses,libxcrypt	-	https://www.vim.org/	https://github.com/vim/vim/archive/refs/tags/v{version}.tar.gz	Vi improved
-extra	neovim	0.12.2	cmake	Apache-2.0 Vim	glibc,libuv,msgpack-c,libvterm,luajit,unibilium,tree-sitter	cmake,ninja	https://neovim.io/	https://github.com/neovim/neovim/archive/refs/tags/v{version}.tar.gz	Hyperextensible Vim-based editor
+extra	neovim	0.12.2	cmake	Apache-2.0 Vim	glibc,libuv,msgpack-c,libvterm,luajit,unibilium,tree-sitter,libluv	cmake,ninja	https://neovim.io/	https://github.com/neovim/neovim/archive/refs/tags/v{version}.tar.gz	Hyperextensible Vim-based editor
 extra	libuv	1.52.0	cmake	MIT	glibc	cmake,ninja	https://libuv.org/	https://github.com/libuv/libuv/archive/refs/tags/v{version}.tar.gz	Asynchronous I/O library
 extra	msgpack-c	2.1.4	cmake	BSL-1.0	glibc	cmake,ninja	https://msgpack.org/	https://github.com/msgpack/msgpack-c/releases/download/c-{version}/msgpack-c-{version}.tar.gz	MessagePack for C
 extra	libvterm	0.3.3	make	MIT	glibc	-	https://www.leonerd.org.uk/code/libvterm/	https://launchpad.net/libvterm/trunk/v{version}/+download/libvterm-{version}.tar.gz	Abstract VT220 terminal emulator library
@@ -579,3 +579,4 @@ main	sysvinit	3.14	make	GPL-2.0-or-later	glibc	-	https://github.com/slicer69/sys
 main	runit	2.2.0	make	BSD-3-Clause	glibc	-	http://smarden.org/runit/	http://smarden.org/runit/runit-{version}.tar.gz	Small init and service supervision
 main	dinit	0.19.4	make	Apache-2.0	glibc	-	https://github.com/davmac314/dinit	https://github.com/davmac314/dinit/archive/refs/tags/v{version}.tar.gz	Service manager and init with dependency handling
 profile	arctic-sound	1.0.0	meta	BSD-2-Clause	pipewire,wireplumber,pipewire-pulse,alsa-lib,alsa-utils	-	https://github.com/apiwo/arctic-linux	-	PipeWire, WirePlumber and alsamixer, configured and enabled
+extra	libluv	1.51.0	cmake	Apache-2.0	glibc,libuv,luajit	cmake,ninja	https://github.com/luvit/luv	https://github.com/luvit/luv/releases/download/{version}-0/luv-{version}-0.tar.gz	libuv bindings for Lua, needed by neovim

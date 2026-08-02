@@ -62,7 +62,7 @@ main	seatd	0.9.1	meson	MIT	glibc	meson,ninja	https://sr.ht/~kennylevinsen/seatd/
 main	dbus	1.16.2	meson	AFL-2.1 GPL-2.0-or-later	glibc,expat	meson,ninja	https://www.freedesktop.org/wiki/Software/dbus/	https://dbus.freedesktop.org/releases/dbus/dbus-{version}.tar.xz	Desktop message bus
 main	iana-etc	20260723	make	MIT	-	-	https://www.iana.org/	https://github.com/Mic92/iana-etc/releases/download/{version}/iana-etc-{version}.tar.gz	/etc/services and /etc/protocols
 main	tzdata	2026b	make	Public-Domain	-	-	https://www.iana.org/time-zones	https://data.iana.org/time-zones/releases/tzdata{version}.tar.gz	Time zone database
-main	e2fsprogs	1.48.2	autotools	GPL-2.0-only LGPL-2.0-only	glibc,util-linux-libs	-	https://e2fsprogs.sourceforge.net/	https://kernel.org/pub/linux/kernel/people/tytso/e2fsprogs/v{version}/e2fsprogs-{version}.tar.xz	ext2/3/4 filesystem tools
+main	e2fsprogs	1.47.4	autotools	GPL-2.0-only LGPL-2.0-only	glibc,util-linux-libs	-	https://e2fsprogs.sourceforge.net/	https://kernel.org/pub/linux/kernel/people/tytso/e2fsprogs/v{version}/e2fsprogs-{version}.tar.xz	ext2/3/4 filesystem tools
 main	dosfstools	4.2	autotools	GPL-3.0-or-later	glibc	-	https://github.com/dosfstools/dosfstools	https://github.com/dosfstools/dosfstools/releases/download/v{version}/dosfstools-{version}.tar.gz	FAT filesystem tools
 main	exfatprogs	1.2.9	autotools	GPL-2.0-or-later	glibc	-	https://github.com/exfatprogs/exfatprogs	https://github.com/exfatprogs/exfatprogs/releases/download/{version}/exfatprogs-{version}.tar.xz	exFAT filesystem tools
 main	btrfs-progs	6.19	autotools	GPL-2.0-only	glibc,zlib,zstd,lz4,util-linux-libs	-	https://btrfs.readthedocs.io/	https://kernel.org/pub/linux/kernel/people/kdave/btrfs-progs/btrfs-progs-v{version}.tar.xz	Btrfs filesystem tools

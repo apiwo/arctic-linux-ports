@@ -22,6 +22,10 @@ build() {
 	_help=$(./configure --help 2>/dev/null)
 	case "$_help" in *--disable-static*)  _opts="$_opts --disable-static" ;; esac
 	case "$_help" in *--disable-nls*)     _opts="$_opts --disable-nls" ;; esac
+	# Auto-detects libmagic on the build host and links against it if
+	# found, which was not shipped on the ISO - nano failed to start at
+	# all with "cannot open shared object file: libmagic.so.1".
+	case "$_help" in *--disable-libmagic*) _opts="$_opts --disable-libmagic" ;; esac
 	# shellcheck disable=SC2086
 	./configure $_opts
 	make -j"$JOBS"

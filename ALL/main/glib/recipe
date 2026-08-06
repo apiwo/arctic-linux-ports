@@ -3,18 +3,18 @@
 # unless the package needs something the template cannot express - in which case
 # drop a `recipe.local` beside it and it will be preserved.
 name=glib
-version=2.90.1
+version=2.84.4
 release=1
 desc="Core GNOME utility library"
 url="https://gitlab.gnome.org/GNOME/glib"
 license="LGPL-2.1-or-later"
 depend="glibc zlib libffi pcre2"
 makedepend="meson ninja python"
-source="https://download.gnome.org/sources/glib/2.90/glib-2.90.1.tar.xz"
+source="https://download.gnome.org/sources/glib/2.84/glib-2.84.4.tar.xz"
 sha256="SKIP"
 
 build() {
-	cd "glib-2.90.1"
+	cd "glib-2.84.4"
 	meson setup build \
 		--prefix=/usr \
 		--libdir=/usr/lib \
@@ -22,11 +22,12 @@ build() {
 		--localstatedir=/var \
 		--buildtype=release \
 		--wrap-mode=nodownload \
-		-Db_lto=true
+		-Db_lto=true \
+		-Dintrospection=disabled
 	ninja -C build -j"$JOBS"
 }
 
 package() {
-	cd "glib-2.90.1"
+	cd "glib-2.84.4"
 	DESTDIR="$pkgdir" ninja -C build install
 }

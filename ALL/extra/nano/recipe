@@ -15,6 +15,17 @@ sha256="SKIP"
 
 build() {
 	cd "nano-9.2"
+	# See recipe.local: scope curses detection to Arctic's own
+	# netbsd-curses, not whatever the build host happens to have.
+	_cdeps="$srcdir/.curses-deps"
+	rm -rf "$_cdeps"; mkdir -p "$_cdeps"
+	_cpkg=$(ls -t /home/apiwo/arctic-build/repo/main/x86_64/netbsd-curses-*.alpmz 2>/dev/null | head -1)
+	[ -n "$_cpkg" ] || die "netbsd-curses has no binary package built yet"
+	( cd "$_cdeps" && untar "$_cpkg" . )
+	export CPPFLAGS="-I$_cdeps/usr/include ${CPPFLAGS:-}"
+	export LDFLAGS="-L$_cdeps/usr/lib -Wl,-rpath-link,$_cdeps/usr/lib ${LDFLAGS:-}"
+	export PKG_CONFIG_PATH="$_cdeps/usr/lib/pkgconfig"
+	export PKG_CONFIG_LIBDIR="$_cdeps/usr/lib/pkgconfig"
 	# Not every configure script accepts the same options - sqlite rejects
 	# --disable-nls outright, for instance - so only pass the ones this one
 	# actually advertises. Guessing wrong fails the whole build.

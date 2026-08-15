@@ -14,11 +14,11 @@ source="https://github.com/apiwo/bsdpatch/archive/refs/tags/v2.0.tar.gz"
 sha256="SKIP"
 
 build() {
-	cd "patch-bsd-2.0"
+	cd "bsdpatch-2.0"
 	make -j"$JOBS" PREFIX=/usr
 }
 
 package() {
-	cd "patch-bsd-2.0"
+	cd "bsdpatch-2.0"
 	make PREFIX=/usr DESTDIR="$pkgdir" install
 }

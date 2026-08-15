@@ -14,11 +14,11 @@ source="https://github.com/lm-sensors/lm-sensors/archive/refs/tags/V3-6-2.tar.gz
 sha256="SKIP"
 
 build() {
-	cd "V3-6-2"
+	cd "lm-sensors-V3-6-2"
 	make -j"$JOBS" PREFIX=/usr
 }
 
 package() {
-	cd "V3-6-2"
+	cd "lm-sensors-V3-6-2"
 	make PREFIX=/usr DESTDIR="$pkgdir" install
 }

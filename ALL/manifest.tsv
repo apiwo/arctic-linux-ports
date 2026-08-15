@@ -12,12 +12,10 @@
 # Everything needed to install Arctic and boot it.
 main	glibc	2.44	autotools	LGPL-2.1-or-later	linux-headers	gcc,bison,python	https://www.gnu.org/software/libc/	https://ftp.gnu.org/gnu/glibc/glibc-{version}.tar.xz	The GNU C library, the only GNU component in Arctic
 main	linux-headers	7.1.3	make	GPL-2.0-only WITH Linux-syscall-note	-	-	https://kernel.org/	https://cdn.kernel.org/pub/linux/kernel/v7.x/linux-{version}.tar.xz	Kernel headers for userspace
-main	musl	1.2.5	autotools	MIT	linux-headers	-	https://musl.libc.org/	https://musl.libc.org/releases/musl-{version}.tar.gz	musl libc, the small alternative to glibc
 main	gcc-libs	15.3.0	autotools	GPL-3.0-or-later WITH GCC-exception-3.1	glibc	-	https://gcc.gnu.org/	https://ftp.gnu.org/gnu/gcc/gcc-{version}/gcc-{version}.tar.xz	libstdc++ and libgcc_s runtime only, required by the NVIDIA driver
 main	gmake	4.4.1	autotools	GPL-3.0-or-later	glibc	-	https://www.gnu.org/software/make/	https://ftp.gnu.org/gnu/make/make-{version}.tar.gz	GNU make as gmake, for kernel modules; /usr/bin/make is still bmake
 main	libglvnd	1.7.0	meson	MIT	glibc	meson,ninja	https://gitlab.freedesktop.org/glvnd/libglvnd	https://gitlab.freedesktop.org/glvnd/libglvnd/-/archive/v{version}/libglvnd-v{version}.tar.gz	GL vendor dispatch, so mesa and NVIDIA can both provide GL
 main	busybox	1.38.0	make	GPL-2.0-only	glibc	-	https://busybox.net/	https://busybox.net/downloads/busybox-{version}.tar.bz2	Init, getty, device manager and network tools
-main	busybox-musl	1.38.0	make	GPL-2.0-only	musl	-	https://busybox.net/	https://busybox.net/downloads/busybox-{version}.tar.bz2	Init, getty, device manager and network tools - built against musl
 main	toybox	0.8.14	make	0BSD	glibc	-	https://landley.net/toybox/	https://landley.net/toybox/downloads/toybox-{version}.tar.gz	The classic Unix commands, BSD licensed
 main	zsh	5.9.2	autotools	MIT-Modern-Variant	glibc,netbsd-curses	clang,lld	https://www.zsh.org/	https://www.zsh.org/pub/zsh-{version}.tar.xz	The Z shell, Arctic's login shell
 main	doas	6.8.2	autotools	ISC	glibc,libxcrypt	clang	https://github.com/Duncaen/OpenDoas	https://github.com/Duncaen/OpenDoas/archive/refs/tags/v{version}.tar.gz	Run commands as another user
@@ -96,7 +94,7 @@ main	alpm	1.0.0	meta	BSD-2-Clause	busybox	-	https://github.com/apiwo/arctic-linu
 main	arctic-base	1.0.0	meta	BSD-2-Clause	busybox,toybox,zsh,doas,alpm,libxcrypt	-	https://github.com/apiwo/arctic-linux	-	Arctic base configuration, init and branding
 main	arctic-init	1.0.0	meta	BSD-2-Clause	busybox,arctic-base	-	https://github.com/apiwo/arctic-linux	-	The Arctic init scripts and service manager
 main	gmp-alt	6.3.0	autotools	LGPL-3.0-or-later	glibc	-	https://gmplib.org/	https://gmplib.org/download/gmp/gmp-{version}.tar.xz	Arbitrary precision arithmetic, for nftables
-main	base	1.0.0	meta	BSD-2-Clause	glibc,busybox,toybox,zsh,doas,alpm,arctic-base,arctic-init,libarchive,mandoc,onetrueawk,libxcrypt,iana-etc,tzdata,ca-certificates	-	https://github.com/apiwo/arctic-linux	-	A minimal but complete Arctic system
+main	base	1.0.0	meta	BSD-2-Clause	glibc,busybox,toybox,zsh,doas,alpm,arctic-base,arctic-init,curl,libarchive,mandoc,onetrueawk,libxcrypt,iana-etc,tzdata,ca-certificates	-	https://github.com/apiwo/arctic-linux	-	A minimal but complete Arctic system
 main	base-devel	1.0.0	meta	BSD-2-Clause	llvm,bmake,byacc,pkgconf,cmake,ninja,meson,git,patch-bsd,flex-alt	-	https://github.com/apiwo/arctic-linux	-	The toolchain needed to build Arctic packages
 main	llvm	22.1.8	cmake	Apache-2.0-with-LLVM-exception	glibc,zlib,zstd,libffi	cmake,ninja,python	https://llvm.org/	https://github.com/llvm/llvm-project/releases/download/llvmorg-{version}/llvm-project-{version}.src.tar.xz	clang, lld, libc++, the Arctic toolchain
 main	cmake	4.2.1	autotools	BSD-3-Clause	glibc,libressl,curl,expat,zlib,libarchive,netbsd-curses	-	https://cmake.org/	https://github.com/Kitware/CMake/releases/download/v{version}/cmake-{version}.tar.gz	Cross-platform build generator
@@ -222,7 +220,7 @@ base	libdrm	2.4.130	meson	MIT	glibc,libpciaccess	meson,ninja	https://dri.freedes
 base	libpciaccess	0.18.1	meson	MIT	glibc	meson,ninja	https://x.org/	https://x.org/pub/individual/lib/libpciaccess-{version}.tar.xz	PCI access library
 base	wayland	1.25.0	meson	MIT	glibc,expat,libffi	meson,ninja	https://wayland.freedesktop.org/	https://gitlab.freedesktop.org/wayland/wayland/-/releases/{version}/downloads/wayland-{version}.tar.xz	Wayland core protocol
 base	wayland-protocols	1.48	meson	MIT	wayland	meson,ninja	https://wayland.freedesktop.org/	https://gitlab.freedesktop.org/wayland/wayland-protocols/-/releases/{version}/downloads/wayland-protocols-{version}.tar.xz	Wayland protocol extensions
-base	libxkbcommon	1.11.0	meson	MIT	glibc,xkeyboard-config,libxml2	meson,ninja	https://xkbcommon.org/	https://xkbcommon.org/download/libxkbcommon-{version}.tar.xz	Keyboard handling library
+base	libxkbcommon	1.13.2	meson	MIT	glibc,xkeyboard-config,libxml2	meson,ninja	https://xkbcommon.org/	https://github.com/xkbcommon/libxkbcommon/archive/refs/tags/xkbcommon-{version}.tar.gz	Keyboard handling library
 base	xkeyboard-config	2.47	meson	MIT	-	meson,ninja	https://www.freedesktop.org/wiki/Software/XKeyboardConfig/	https://x.org/pub/individual/data/xkeyboard-config/xkeyboard-config-{version}.tar.xz	Keyboard layout database
 base	pixman	0.46.4	meson	MIT	glibc	meson,ninja	http://pixman.org/	https://x.org/pub/individual/lib/pixman-{version}.tar.xz	Low-level pixel manipulation
 base	cairo	1.18.4	meson	LGPL-2.1-only MPL-1.1	glibc,pixman,freetype,fontconfig,libpng,glib	meson,ninja	https://cairographics.org/	https://cairographics.org/releases/cairo-{version}.tar.xz	2D graphics library
@@ -247,8 +245,10 @@ base	gmmlib	22.9.0	cmake	MIT	glibc	cmake,ninja	https://github.com/intel/gmmlib	h
 base	libvdpau	1.5	meson	MIT	glibc,libx11	meson,ninja	https://gitlab.freedesktop.org/vdpau/libvdpau	https://gitlab.freedesktop.org/vdpau/libvdpau/-/archive/{version}/libvdpau-{version}.tar.gz	Video Decode and Presentation API
 base	xorg-server	21.1.20	meson	MIT	glibc,mesa,libdrm,pixman,libxkbcommon,libxfont2	meson,ninja	https://x.org/	https://x.org/pub/individual/xserver/xorg-server-{version}.tar.xz	The X.Org display server
 base	xorg-xwayland	24.1.9	meson	MIT	glibc,mesa,wayland,libdrm,pixman,libxkbcommon	meson,ninja	https://x.org/	https://x.org/pub/individual/xserver/xwayland-{version}.tar.xz	X server running on Wayland
+base	xcb-proto	1.17.0	autotools	MIT	python	-	https://xcb.freedesktop.org/	https://xorg.freedesktop.org/archive/individual/proto/xcb-proto-{version}.tar.xz	XML descriptions of the X protocol, needed to build libxcb
+base	xorgproto	2025.1	meson	MIT	-	meson,ninja	https://gitlab.freedesktop.org/xorg/proto/xorgproto	https://xorg.freedesktop.org/archive/individual/proto/xorgproto-{version}.tar.xz	X11 protocol headers
 base	libx11	1.8.13	autotools	MIT	glibc,libxcb	-	https://x.org/	https://x.org/pub/individual/lib/libX11-{version}.tar.xz	X11 client library
-base	libxcb	1.17.0	autotools	MIT	glibc,libxau,libxdmcp	-	https://x.org/	https://x.org/pub/individual/lib/libxcb-{version}.tar.xz	X protocol C-language binding
+base	libxcb	1.17.0	autotools	MIT	glibc,libxau,libxdmcp,xcb-proto	-	https://x.org/	https://x.org/pub/individual/lib/libxcb-{version}.tar.xz	X protocol C-language binding
 base	libxau	1.0.12	autotools	MIT	glibc	-	https://x.org/	https://x.org/pub/individual/lib/libXau-{version}.tar.xz	X authorisation library
 base	libxdmcp	1.1.5	autotools	MIT	glibc	-	https://x.org/	https://x.org/pub/individual/lib/libXdmcp-{version}.tar.xz	X Display Manager Control Protocol
 base	libxft	2.3.9	autotools	MIT	glibc,libx11,freetype,fontconfig,libxrender	-	https://x.org/	https://x.org/pub/individual/lib/libXft-{version}.tar.xz	X FreeType interface
@@ -578,6 +578,7 @@ main	s6-linux-init	1.1.3.0	autotools	ISC	glibc,skalibs,execline,s6	-	https://ska
 main	openrc	0.63.2	meson	BSD-2-Clause	glibc,util-linux-libs	meson,ninja	https://github.com/OpenRC/openrc	https://github.com/OpenRC/openrc/archive/refs/tags/{version}.tar.gz	Dependency-based init system from Gentoo
 main	sysvinit	3.14	make	GPL-2.0-or-later	glibc	-	https://github.com/slicer69/sysvinit	https://github.com/slicer69/sysvinit/archive/refs/tags/{version}.tar.gz	The traditional System V init
 main	runit	2.2.0	make	BSD-3-Clause	glibc	-	http://smarden.org/runit/	http://smarden.org/runit/runit-{version}.tar.gz	Small init and service supervision
+main	nitro	0.8.1	make	0BSD	glibc	-	https://github.com/leahneukirchen/nitro	https://github.com/leahneukirchen/nitro/archive/refs/tags/v{version}.tar.gz	Tiny init system and process supervisor
 main	dinit	0.19.4	make	Apache-2.0	glibc	-	https://github.com/davmac314/dinit	https://github.com/davmac314/dinit/archive/refs/tags/v{version}.tar.gz	Service manager and init with dependency handling
 profile	arctic-sound	1.0.0	meta	BSD-2-Clause	pipewire,wireplumber,pipewire-pulse,alsa-lib,alsa-utils	-	https://github.com/apiwo/arctic-linux	-	PipeWire, WirePlumber and alsamixer, configured and enabled
 extra	libluv	1.51.0	cmake	Apache-2.0	glibc,libuv,luajit	cmake,ninja	https://github.com/luvit/luv	https://github.com/luvit/luv/releases/download/{version}-0/luv-{version}-0.tar.gz	libuv bindings for Lua, needed by neovim

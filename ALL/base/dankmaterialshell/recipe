@@ -14,7 +14,7 @@ source="https://github.com/AvengeMedia/DankMaterialShell/archive/refs/tags/v1.5.
 sha256="SKIP"
 
 build() {
-	cd "dankmaterialshell-1.5.0"
+	cd "DankMaterialShell-1.5.0"
 	meson setup build \
 		--prefix=/usr \
 		--libdir=/usr/lib \
@@ -27,6 +27,6 @@ build() {
 }
 
 package() {
-	cd "dankmaterialshell-1.5.0"
+	cd "DankMaterialShell-1.5.0"
 	DESTDIR="$pkgdir" ninja -C build install
 }

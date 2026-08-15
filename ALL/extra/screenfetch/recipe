@@ -14,11 +14,11 @@ source="https://github.com/KittyKatt/screenFetch/archive/refs/tags/v3.9.1.tar.gz
 sha256="SKIP"
 
 build() {
-	cd "screenfetch-3.9.1"
+	cd "screenFetch-3.9.1"
 	make -j"$JOBS" PREFIX=/usr
 }
 
 package() {
-	cd "screenfetch-3.9.1"
+	cd "screenFetch-3.9.1"
 	make PREFIX=/usr DESTDIR="$pkgdir" install
 }

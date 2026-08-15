@@ -14,7 +14,7 @@ source="https://github.com/audacity/audacity/archive/refs/tags/Audacity-3.8.0.ta
 sha256="SKIP"
 
 build() {
-	cmake -S "Audacity-3.8.0" -B build -G Ninja \
+	cmake -S "audacity-Audacity-3.8.0" -B build -G Ninja \
 		-DCMAKE_INSTALL_PREFIX=/usr \
 		-DCMAKE_INSTALL_LIBDIR=lib \
 		-DCMAKE_BUILD_TYPE=Release \

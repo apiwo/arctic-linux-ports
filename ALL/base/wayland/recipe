@@ -1,20 +1,21 @@
 # wayland - Wayland core protocol
-# Generated from manifest.tsv by gen-ports.py. Edit the manifest, not this file,
-# unless the package needs something the template cannot express - in which case
-# drop a `recipe.local` beside it and it will be preserved.
+#
+# documentation=false: the docs need doxygen, xsltproc and the DocBook XSL
+# stylesheets, none of which Arctic builds. Without it meson fails at
+# configure time on doc/meson.build before compiling anything.
 name=wayland
 version=1.25.0
 release=1
 desc="Wayland core protocol"
 url="https://wayland.freedesktop.org/"
 license="MIT"
-depend="glibc expat libffi"
+depend="glibc expat libffi libxml2"
 makedepend="meson ninja"
 source="https://gitlab.freedesktop.org/wayland/wayland/-/releases/1.25.0/downloads/wayland-1.25.0.tar.xz"
 sha256="SKIP"
 
 build() {
-	cd "wayland-1.25.0"
+	cd "wayland-$version"
 	meson setup build \
 		--prefix=/usr \
 		--libdir=/usr/lib \
@@ -22,11 +23,13 @@ build() {
 		--localstatedir=/var \
 		--buildtype=release \
 		--wrap-mode=nodownload \
-		-Db_lto=true
+		-Db_lto=true \
+		-Ddocumentation=false \
+		-Dtests=false
 	ninja -C build -j"$JOBS"
 }
 
 package() {
-	cd "wayland-1.25.0"
+	cd "wayland-$version"
 	DESTDIR="$pkgdir" ninja -C build install
 }

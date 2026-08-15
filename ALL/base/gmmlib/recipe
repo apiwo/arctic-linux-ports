@@ -14,7 +14,7 @@ source="https://github.com/intel/gmmlib/archive/refs/tags/intel-gmmlib-22.9.0.ta
 sha256="SKIP"
 
 build() {
-	cmake -S "intel-gmmlib-22.9.0" -B build -G Ninja \
+	cmake -S "gmmlib-intel-gmmlib-22.9.0" -B build -G Ninja \
 		-DCMAKE_INSTALL_PREFIX=/usr \
 		-DCMAKE_INSTALL_LIBDIR=lib \
 		-DCMAKE_BUILD_TYPE=Release \

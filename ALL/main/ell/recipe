@@ -1,11 +1,11 @@
-# ell - Embedded Linux library, used by iwd
+# ell - Embedded Linux library, used by bluez
 # Generated from manifest.tsv by gen-ports.py. Edit the manifest, not this file,
 # unless the package needs something the template cannot express - in which case
 # drop a `recipe.local` beside it and it will be preserved.
 name=ell
 version=0.79
 release=1
-desc="Embedded Linux library, used by iwd"
+desc="Embedded Linux library, used by bluez"
 url="https://git.kernel.org/pub/scm/libs/ell/ell.git"
 license="LGPL-2.1-or-later"
 depend="glibc"

@@ -14,11 +14,11 @@ source="https://github.com/LuaJIT/LuaJIT/archive/refs/tags/v2.1.1748459687.tar.g
 sha256="SKIP"
 
 build() {
-	cd "luajit-2.1.1748459687"
+	cd "LuaJIT-2.1.1748459687"
 	make -j"$JOBS" PREFIX=/usr
 }
 
 package() {
-	cd "luajit-2.1.1748459687"
+	cd "LuaJIT-2.1.1748459687"
 	make PREFIX=/usr DESTDIR="$pkgdir" install
 }

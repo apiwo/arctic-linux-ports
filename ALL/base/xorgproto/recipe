@@ -1,20 +1,20 @@
-# iwd - iNet wireless daemon, provides iwctl
+# xorgproto - X11 protocol headers
 # Generated from manifest.tsv by gen-ports.py. Edit the manifest, not this file,
 # unless the package needs something the template cannot express - in which case
 # drop a `recipe.local` beside it and it will be preserved.
-name=iwd
-version=3.9
+name=xorgproto
+version=2025.1
 release=1
-desc="iNet wireless daemon, provides iwctl"
-url="https://iwd.wiki.kernel.org/"
-license="LGPL-2.1-or-later"
-depend="glibc ell dbus"
+desc="X11 protocol headers"
+url="https://gitlab.freedesktop.org/xorg/proto/xorgproto"
+license="MIT"
+depend=""
 makedepend="meson ninja"
-source="https://kernel.org/pub/linux/network/wireless/iwd-3.9.tar.xz"
+source="https://xorg.freedesktop.org/archive/individual/proto/xorgproto-2025.1.tar.xz"
 sha256="SKIP"
 
 build() {
-	cd "iwd-3.9"
+	cd "xorgproto-2025.1"
 	meson setup build \
 		--prefix=/usr \
 		--libdir=/usr/lib \
@@ -27,6 +27,6 @@ build() {
 }
 
 package() {
-	cd "iwd-3.9"
+	cd "xorgproto-2025.1"
 	DESTDIR="$pkgdir" ninja -C build install
 }

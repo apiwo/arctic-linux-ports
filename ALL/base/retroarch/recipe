@@ -14,7 +14,7 @@ source="https://github.com/libretro/RetroArch/archive/refs/tags/v1.22.0.tar.gz"
 sha256="SKIP"
 
 build() {
-	cd "retroarch-1.22.0"
+	cd "RetroArch-1.22.0"
 	# Not every configure script accepts the same options - sqlite rejects
 	# --disable-nls outright, for instance - so only pass the ones this one
 	# actually advertises. Guessing wrong fails the whole build.
@@ -28,6 +28,6 @@ build() {
 }
 
 package() {
-	cd "retroarch-1.22.0"
+	cd "RetroArch-1.22.0"
 	make DESTDIR="$pkgdir" install
 }

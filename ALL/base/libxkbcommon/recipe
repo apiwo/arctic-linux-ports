@@ -3,18 +3,18 @@
 # unless the package needs something the template cannot express - in which case
 # drop a `recipe.local` beside it and it will be preserved.
 name=libxkbcommon
-version=1.11.0
+version=1.13.2
 release=1
 desc="Keyboard handling library"
 url="https://xkbcommon.org/"
 license="MIT"
 depend="glibc xkeyboard-config libxml2"
 makedepend="meson ninja"
-source="https://xkbcommon.org/download/libxkbcommon-1.11.0.tar.xz"
+source="https://github.com/xkbcommon/libxkbcommon/archive/refs/tags/xkbcommon-1.13.2.tar.gz"
 sha256="SKIP"
 
 build() {
-	cd "libxkbcommon-1.11.0"
+	cd "libxkbcommon-xkbcommon-1.13.2"
 	meson setup build \
 		--prefix=/usr \
 		--libdir=/usr/lib \
@@ -27,6 +27,6 @@ build() {
 }
 
 package() {
-	cd "libxkbcommon-1.11.0"
+	cd "libxkbcommon-xkbcommon-1.13.2"
 	DESTDIR="$pkgdir" ninja -C build install
 }

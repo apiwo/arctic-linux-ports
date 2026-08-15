@@ -14,11 +14,11 @@ source="https://github.com/notofonts/notofonts.github.io/archive/refs/tags/noto-
 sha256="SKIP"
 
 build() {
-	cd "noto-monthly-release-20260501"
+	cd "notofonts.github.io-noto-monthly-release-20260501"
 	make -j"$JOBS" PREFIX=/usr
 }
 
 package() {
-	cd "noto-monthly-release-20260501"
+	cd "notofonts.github.io-noto-monthly-release-20260501"
 	make PREFIX=/usr DESTDIR="$pkgdir" install
 }

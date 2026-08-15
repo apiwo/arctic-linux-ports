@@ -1,20 +1,20 @@
-# dhcpcd - DHCP client
+# xcb-proto - XML descriptions of the X protocol, needed to build libxcb
 # Generated from manifest.tsv by gen-ports.py. Edit the manifest, not this file,
 # unless the package needs something the template cannot express - in which case
 # drop a `recipe.local` beside it and it will be preserved.
-name=dhcpcd
-version=10.3.2
+name=xcb-proto
+version=1.17.0
 release=1
-desc="DHCP client"
-url="https://roy.marples.name/projects/dhcpcd"
-license="BSD-2-Clause"
-depend="glibc"
+desc="XML descriptions of the X protocol, needed to build libxcb"
+url="https://xcb.freedesktop.org/"
+license="MIT"
+depend="python"
 makedepend=""
-source="https://github.com/NetworkConfiguration/dhcpcd/releases/download/v10.3.2/dhcpcd-10.3.2.tar.xz"
+source="https://xorg.freedesktop.org/archive/individual/proto/xcb-proto-1.17.0.tar.xz"
 sha256="SKIP"
 
 build() {
-	cd "dhcpcd-10.3.2"
+	cd "xcb-proto-1.17.0"
 	# Not every configure script accepts the same options - sqlite rejects
 	# --disable-nls outright, for instance - so only pass the ones this one
 	# actually advertises. Guessing wrong fails the whole build.
@@ -28,6 +28,6 @@ build() {
 }
 
 package() {
-	cd "dhcpcd-10.3.2"
+	cd "xcb-proto-1.17.0"
 	make DESTDIR="$pkgdir" install
 }

@@ -14,11 +14,11 @@ source="https://github.com/googlefonts/noto-emoji/archive/refs/tags/v2.051.tar.g
 sha256="SKIP"
 
 build() {
-	cd "noto-fonts-emoji-2.051"
+	cd "noto-emoji-2.051"
 	make -j"$JOBS" PREFIX=/usr
 }
 
 package() {
-	cd "noto-fonts-emoji-2.051"
+	cd "noto-emoji-2.051"
 	make PREFIX=/usr DESTDIR="$pkgdir" install
 }

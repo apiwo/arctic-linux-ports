@@ -14,7 +14,7 @@ source="https://github.com/uclouvain/openjpeg/archive/refs/tags/v2.5.4.tar.gz"
 sha256="SKIP"
 
 build() {
-	cmake -S "openjpeg2-2.5.4" -B build -G Ninja \
+	cmake -S "openjpeg-2.5.4" -B build -G Ninja \
 		-DCMAKE_INSTALL_PREFIX=/usr \
 		-DCMAKE_INSTALL_LIBDIR=lib \
 		-DCMAKE_BUILD_TYPE=Release \

@@ -14,7 +14,7 @@ source="https://github.com/openjdk/jdk25u/archive/refs/tags/jdk-25.0.2-ga.tar.gz
 sha256="SKIP"
 
 build() {
-	cd "jdk-25.0.2-ga"
+	cd "jdk25u-jdk-25.0.2-ga"
 	# Not every configure script accepts the same options - sqlite rejects
 	# --disable-nls outright, for instance - so only pass the ones this one
 	# actually advertises. Guessing wrong fails the whole build.
@@ -28,6 +28,6 @@ build() {
 }
 
 package() {
-	cd "jdk-25.0.2-ga"
+	cd "jdk25u-jdk-25.0.2-ga"
 	make DESTDIR="$pkgdir" install
 }

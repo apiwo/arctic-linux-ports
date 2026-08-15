@@ -15,19 +15,21 @@ sha256="SKIP"
 
 build() {
 	cd "openssl-3.6.2"
-	# Not every configure script accepts the same options - sqlite rejects
-	# --disable-nls outright, for instance - so only pass the ones this one
-	# actually advertises. Guessing wrong fails the whole build.
-	_opts="--prefix=/usr --sysconfdir=/etc --localstatedir=/var --libdir=/usr/lib"
-	_help=$(./configure --help 2>/dev/null)
-	case "$_help" in *--disable-static*)  _opts="$_opts --disable-static" ;; esac
-	case "$_help" in *--disable-nls*)     _opts="$_opts --disable-nls" ;; esac
-	# shellcheck disable=SC2086
-	./configure $_opts
+	# openssl's own Configure (capital C, a perl script) is not autoconf -
+	# no --help output listing options the generic template's usual dance
+	# expects, and it takes a target name as its first argument rather than
+	# just flags.
+	./Configure linux-x86_64 \
+		--prefix=/usr --openssldir=/etc/ssl --libdir=lib \
+		shared no-docs
 	make -j"$JOBS"
 }
 
 package() {
 	cd "openssl-3.6.2"
-	make DESTDIR="$pkgdir" install
+	# install_sw + install_ssldirs: the binaries/libs/headers and the
+	# /etc/ssl layout (openssl.cnf, cert dirs), skipping install_docs -
+	# openssl's man pages are a separate multi-thousand-file tree this port
+	# has no need to ship.
+	make DESTDIR="$pkgdir" install_sw install_ssldirs
 }

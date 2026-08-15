@@ -1,11 +1,12 @@
 # alpm - the Arctic Linux Package Manager itself.
+# Deliberately thin: alpm has to work on a system with nothing else on it.
+# (alpm-rs/ has a Rust rewrite sitting in the tree, unused for now.)
 name=alpm
 version=1.0.0
 release=1
 desc="Arctic Linux Package Manager"
 url="https://github.com/apiwo/arctic-linux"
 license="BSD-2-Clause"
-# Deliberately thin: alpm has to work on a system with nothing else on it.
 depend="busybox"
 provides="package-manager"
 source="alpm alpm-build alpm-repo libalpm.sh alpm.conf"

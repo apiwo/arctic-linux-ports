@@ -14,7 +14,7 @@ source="https://github.com/KhronosGroup/Vulkan-Loader/archive/refs/tags/v1.4.330
 sha256="SKIP"
 
 build() {
-	cmake -S "vulkan-loader-32-1.4.330" -B build -G Ninja \
+	cmake -S "Vulkan-Loader-1.4.330" -B build -G Ninja \
 		-DCMAKE_INSTALL_PREFIX=/usr \
 		-DCMAKE_INSTALL_LIBDIR=lib \
 		-DCMAKE_BUILD_TYPE=Release \

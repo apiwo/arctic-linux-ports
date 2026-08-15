@@ -14,7 +14,7 @@ source="https://github.com/AcademySoftwareFoundation/Imath/archive/refs/tags/v3.
 sha256="SKIP"
 
 build() {
-	cmake -S "imath-3.2.2" -B build -G Ninja \
+	cmake -S "Imath-3.2.2" -B build -G Ninja \
 		-DCMAKE_INSTALL_PREFIX=/usr \
 		-DCMAKE_INSTALL_LIBDIR=lib \
 		-DCMAKE_BUILD_TYPE=Release \

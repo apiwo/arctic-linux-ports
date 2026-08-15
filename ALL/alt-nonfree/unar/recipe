@@ -14,11 +14,11 @@ source="https://github.com/MacPaw/XADMaster/archive/refs/tags/v1.10.8.tar.gz"
 sha256="SKIP"
 
 build() {
-	cd "unar-1.10.8"
+	cd "XADMaster-1.10.8"
 	make -j"$JOBS" PREFIX=/usr
 }
 
 package() {
-	cd "unar-1.10.8"
+	cd "XADMaster-1.10.8"
 	make PREFIX=/usr DESTDIR="$pkgdir" install
 }

@@ -1,0 +1,35 @@
+# nitro - tiny init system and process supervisor.
+#
+# Upstream ships no install target, so package() places the files itself.
+#
+# nitroctl doubles as init/halt/poweroff/reboot/shutdown when invoked under
+# those names. Those symlinks are not installed here: busybox already owns
+# all five in /usr/bin, and two packages claiming one path is a hard install
+# conflict. arctic-init-setup links them on a system that boots nitro.
+name=nitro
+version=0.8.1
+release=1
+desc="Tiny init system and process supervisor"
+url="https://github.com/leahneukirchen/nitro"
+license="0BSD"
+depend="glibc"
+makedepend=""
+source="https://github.com/leahneukirchen/nitro/archive/refs/tags/v$version.tar.gz"
+sha256="SKIP"
+
+build() {
+	cd "nitro-$version"
+	make CC="$CC" CFLAGS="$CFLAGS" -j"$JOBS"
+}
+
+package() {
+	cd "nitro-$version"
+	install -Dm755 nitro     "$pkgdir/usr/bin/nitro"
+	install -Dm755 nitroctl  "$pkgdir/usr/bin/nitroctl"
+	install -Dm644 nitro.8    "$pkgdir/usr/share/man/man8/nitro.8"
+	install -Dm644 nitroctl.1 "$pkgdir/usr/share/man/man1/nitroctl.1"
+	install -Dm644 halt.8     "$pkgdir/usr/share/man/man8/nitro-halt.8"
+	# The service directory itself, so nitro has somewhere to look before
+	# anything has been configured. arctic-init-setup fills it in.
+	install -dm755 "$pkgdir/etc/nitro"
+}

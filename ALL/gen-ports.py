@@ -19,6 +19,7 @@ Manifest columns, tab separated:
 meta package with no payload.
 """
 import os
+import re
 import sys
 import collections
 
@@ -308,6 +309,20 @@ def srcdir_for(name, version, source):
     # whichever way the tag itself was spelled. Only kicks in when fn is
     # actually bare-version-shaped; a project's own release tarball already
     # names itself correctly and is left alone.
+    # A GitHub archive tarball is named after the *tag*, but always unpacks
+    # into <repo>-<tag>. The two only coincide when the tag is a bare version:
+    # libxkbcommon tags "xkbcommon-1.13.2", so its tarball unpacks into
+    # libxkbcommon-xkbcommon-1.13.2, and guessing from the filename alone put
+    # the build in a directory that does not exist. Take the repo name from
+    # the URL instead of inferring it.
+    m = re.search(
+        r"github\.com/[^/]+/([^/]+)/archive/(?:refs/tags/)?(.+?)"
+        r"\.(?:tar\.gz|tar\.xz|tar\.bz2|tgz|zip)$", first)
+    if m:
+        repo_name, tag = m.group(1), m.group(2)
+        if tag.startswith("v") and tag[1:2].isdigit():
+            tag = tag[1:]
+        return f"{repo_name}-{tag}"
     bare = fn[1:] if fn.startswith("v") and fn[1:2].isdigit() else fn
     if bare and bare[0].isdigit():
         fn = f"{name}-{bare}"

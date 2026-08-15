@@ -14,7 +14,7 @@ source="https://github.com/intel/media-driver/archive/refs/tags/intel-media-26.1
 sha256="SKIP"
 
 build() {
-	cmake -S "intel-media-26.1.0" -B build -G Ninja \
+	cmake -S "media-driver-intel-media-26.1.0" -B build -G Ninja \
 		-DCMAKE_INSTALL_PREFIX=/usr \
 		-DCMAKE_INSTALL_LIBDIR=lib \
 		-DCMAKE_BUILD_TYPE=Release \

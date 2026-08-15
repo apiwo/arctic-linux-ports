@@ -1,7 +1,9 @@
 # lua - The Lua interpreter
-# Generated from manifest.tsv by gen-ports.py. Edit the manifest, not this file,
-# unless the package needs something the template cannot express - in which case
-# drop a `recipe.local` beside it and it will be preserved.
+#
+# Lua's Makefile has no DESTDIR support: INSTALL_TOP is the install root, and
+# it defaults to /usr/local. The generated recipe's "make DESTDIR=... install"
+# was therefore ignored outright and the install went at the real /usr/local
+# instead - which the build sandbox refused, read-only, exactly as intended.
 name=lua
 version=5.5.0
 release=1
@@ -14,11 +16,24 @@ source="https://www.lua.org/ftp/lua-5.5.0.tar.gz"
 sha256="SKIP"
 
 build() {
-	cd "lua-5.5.0"
-	make -j"$JOBS" PREFIX=/usr
+	cd "lua-$version"
+	make -j"$JOBS" MYCFLAGS="$CFLAGS -fPIC" MYLDFLAGS="$LDFLAGS"
 }
 
 package() {
-	cd "lua-5.5.0"
-	make PREFIX=/usr DESTDIR="$pkgdir" install
+	cd "lua-$version"
+	make INSTALL_TOP="$pkgdir/usr" INSTALL_MAN="$pkgdir/usr/share/man/man1" install
+	# A pkg-config file, since everything that embeds lua looks for one.
+	install -dm755 "$pkgdir/usr/lib/pkgconfig"
+	cat >"$pkgdir/usr/lib/pkgconfig/lua.pc" <<EOF
+prefix=/usr
+libdir=/usr/lib
+includedir=/usr/include
+
+Name: Lua
+Description: An extensible extension language
+Version: $version
+Libs: -L\${libdir} -llua -lm
+Cflags: -I\${includedir}
+EOF
 }

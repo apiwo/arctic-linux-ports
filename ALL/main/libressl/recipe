@@ -1,10 +1,7 @@
 # libressl - OpenBSD TLS, Arctic's default
-# Generated from manifest.tsv by gen-ports.py. Edit the manifest, not this file,
-# unless the package needs something the template cannot express - in which case
-# drop a `recipe.local` beside it and it will be preserved.
 name=libressl
 version=4.2.0
-release=1
+release=2
 desc="OpenBSD TLS, Arctic's default"
 url="https://www.libressl.org/"
 license="ISC Apache-2.0"
@@ -28,6 +25,12 @@ build() {
 }
 
 package() {
-	cd "libressl-4.2.0"
+	cd "libressl-$version"
 	make DESTDIR="$pkgdir" install
+	# The CA bundle belongs to ca-certificates, which is where it is kept up
+	# to date. libressl installs its own placeholder at the same path, and
+	# two packages owning one file is a hard conflict - "file conflict:
+	# /etc/ssl/cert.pem is owned by libressl" was enough to stop any
+	# transaction that included ca-certificates, which is most of them.
+	rm -f "$pkgdir/etc/ssl/cert.pem"
 }

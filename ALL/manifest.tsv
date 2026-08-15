@@ -36,10 +36,13 @@ main	brotli	1.1.0	cmake	MIT	glibc	cmake,ninja	https://github.com/google/brotli	h
 main	libressl	4.2.0	autotools	ISC Apache-2.0	glibc	-	https://www.libressl.org/	https://ftp.openbsd.org/pub/OpenBSD/LibreSSL/libressl-{version}.tar.gz	OpenBSD TLS, Arctic's default
 main	openssl	3.6.2	autotools	Apache-2.0	glibc	perl	https://openssl.org/	https://github.com/openssl/openssl/releases/download/openssl-{version}/openssl-{version}.tar.gz	TLS toolkit, for software that insists on it
 main	ca-certificates	20260601	make	MPL-2.0	glibc	-	https://curl.se/docs/caextract.html	https://curl.se/ca/cacert.pem	Trusted certificate authority bundle
-main	curl	8.19.0	autotools	curl	glibc,libressl,zlib,nghttp2,brotli,zstd	-	https://curl.se/	https://curl.se/download/curl-{version}.tar.xz	Transfer data over any protocol
+main	curl	8.19.0	autotools	curl	glibc,libressl,zlib,nghttp2,brotli,zstd,libidn2,libpsl	-	https://curl.se/	https://curl.se/download/curl-{version}.tar.xz	Transfer data over any protocol
 main	nghttp2	1.68.0	autotools	MIT	glibc	-	https://nghttp2.org/	https://github.com/nghttp2/nghttp2/releases/download/v{version}/nghttp2-{version}.tar.xz	HTTP/2 library
 main	c-ares	1.34.8	cmake	MIT	glibc	cmake,ninja	https://c-ares.org/	https://github.com/c-ares/c-ares/releases/download/v{version}/c-ares-{version}.tar.gz	Asynchronous DNS resolver
 main	libpsl	0.21.5	meson	MIT	glibc	meson,ninja	https://github.com/rockdaboot/libpsl	https://github.com/rockdaboot/libpsl/releases/download/{version}/libpsl-{version}.tar.gz	Public suffix list library
+main	libunistring	1.3	autotools	LGPL-3.0-or-later	glibc	-	https://www.gnu.org/software/libunistring/	https://ftp.gnu.org/gnu/libunistring/libunistring-{version}.tar.xz	Unicode string library
+main	libidn2	2.3.7	autotools	LGPL-3.0-or-later	glibc,libunistring	-	https://www.gnu.org/software/libidn/	https://ftp.gnu.org/gnu/libidn/libidn2-{version}.tar.gz	Internationalised domain names, which curl resolves hostnames with
+main	jansson	2.14	autotools	MIT	glibc	-	https://github.com/akheron/jansson	https://github.com/akheron/jansson/releases/download/v{version}/jansson-{version}.tar.gz	JSON parsing library
 main	pcre2	10.46	autotools	BSD-3-Clause	glibc,zlib,bzip2	-	https://pcre2project.github.io/pcre2/	https://github.com/PCRE2Project/pcre2/releases/download/pcre2-{version}/pcre2-{version}.tar.bz2	Perl compatible regular expressions
 main	expat	2.8.2	autotools	MIT	glibc	-	https://libexpat.github.io/	https://github.com/libexpat/libexpat/releases/download/R_{V_}/expat-{version}.tar.xz	Stream-oriented XML parser
 main	libffi	3.5.2	autotools	MIT	glibc	-	https://sourceware.org/libffi/	https://github.com/libffi/libffi/releases/download/v{version}/libffi-{version}.tar.gz	Foreign function interface

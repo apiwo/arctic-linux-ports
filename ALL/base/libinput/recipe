@@ -1,7 +1,8 @@
 # libinput - Input device handling
-# Generated from manifest.tsv by gen-ports.py. Edit the manifest, not this file,
-# unless the package needs something the template cannot express - in which case
-# drop a `recipe.local` beside it and it will be preserved.
+#
+# libwacom, the debug GUI and the test suite are all off: libwacom is a
+# tablet database Arctic does not package, and meson treats it as a hard
+# dependency unless told otherwise.
 name=libinput
 version=1.30.0
 release=1
@@ -22,7 +23,11 @@ build() {
 		--localstatedir=/var \
 		--buildtype=release \
 		--wrap-mode=nodownload \
-		-Db_lto=true
+		-Db_lto=true \
+		-Dlibwacom=false \
+		-Ddebug-gui=false \
+		-Dtests=false \
+		-Ddocumentation=false
 	ninja -C build -j"$JOBS"
 }
 

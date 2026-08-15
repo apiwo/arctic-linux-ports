@@ -1,20 +1,20 @@
-# libconfig - Structured configuration file library
+# xorg-xinit - startx and the X session starter
 # Generated from manifest.tsv by gen-ports.py. Edit the manifest, not this file,
 # unless the package needs something the template cannot express - in which case
 # drop a `recipe.local` beside it and it will be preserved.
-name=libconfig
-version=1.8.2
+name=xorg-xinit
+version=1.4.4
 release=1
-desc="Structured configuration file library"
-url="https://hyperrealm.github.io/libconfig/"
-license="LGPL-2.1-or-later"
-depend="glibc"
+desc="startx and the X session starter"
+url="https://x.org/"
+license="MIT"
+depend="glibc libx11"
 makedepend=""
-source="https://github.com/hyperrealm/libconfig/releases/download/v1.8.2/libconfig-1.8.2.tar.gz"
+source="https://www.x.org/releases/individual/app/xinit-1.4.4.tar.xz"
 sha256="SKIP"
 
 build() {
-	cd "libconfig-1.8.2"
+	cd "xinit-1.4.4"
 	# Not every configure script accepts the same options - sqlite rejects
 	# --disable-nls outright, for instance - so only pass the ones this one
 	# actually advertises. Guessing wrong fails the whole build.
@@ -28,6 +28,6 @@ build() {
 }
 
 package() {
-	cd "libconfig-1.8.2"
+	cd "xinit-1.4.4"
 	make DESTDIR="$pkgdir" install
 }

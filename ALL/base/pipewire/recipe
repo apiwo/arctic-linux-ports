@@ -1,7 +1,8 @@
 # pipewire - Audio and video server
-# Generated from manifest.tsv by gen-ports.py. Edit the manifest, not this file,
-# unless the package needs something the template cannot express - in which case
-# drop a `recipe.local` beside it and it will be preserved.
+#
+# session-managers=[]: pipewire otherwise pulls wireplumber in as a meson
+# subproject and builds it inside this package, which collides with the
+# wireplumber package built separately ("Subproject wireplumber is buildable").
 name=pipewire
 version=1.6.2
 release=1
@@ -15,6 +16,12 @@ sha256="SKIP"
 
 build() {
 	cd "pipewire-1.6.2"
+	# pipewire compiles its bundled PulseAudio compatibility layer with
+	# -Werror=discarded-qualifiers, and its own compat.h drops const in
+	# pa_path_get_filename(). Newer compilers make that fatal; the code is
+	# upstream's and works, so downgrade that one check rather than patch it.
+	CFLAGS="$CFLAGS -Wno-error=discarded-qualifiers"
+	export CFLAGS
 	meson setup build \
 		--prefix=/usr \
 		--libdir=/usr/lib \
@@ -22,7 +29,11 @@ build() {
 		--localstatedir=/var \
 		--buildtype=release \
 		--wrap-mode=nodownload \
-		-Db_lto=true
+		-Db_lto=true \
+		-Dsession-managers=[] \
+		-Ddocs=disabled \
+		-Dman=disabled \
+		-Dtests=disabled
 	ninja -C build -j"$JOBS"
 }
 

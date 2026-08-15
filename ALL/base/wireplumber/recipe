@@ -3,18 +3,18 @@
 # unless the package needs something the template cannot express - in which case
 # drop a `recipe.local` beside it and it will be preserved.
 name=wireplumber
-version=0.6.2
+version=0.5.10
 release=1
 desc="PipeWire session manager"
 url="https://pipewire.pages.freedesktop.org/wireplumber/"
 license="MIT"
 depend="pipewire glib lua"
 makedepend="meson ninja"
-source="https://gitlab.freedesktop.org/pipewire/wireplumber/-/archive/0.6.2/wireplumber-0.6.2.tar.gz"
+source="https://gitlab.freedesktop.org/pipewire/wireplumber/-/archive/0.5.10/wireplumber-0.5.10.tar.gz"
 sha256="SKIP"
 
 build() {
-	cd "wireplumber-0.6.2"
+	cd "wireplumber-0.5.10"
 	meson setup build \
 		--prefix=/usr \
 		--libdir=/usr/lib \
@@ -27,6 +27,6 @@ build() {
 }
 
 package() {
-	cd "wireplumber-0.6.2"
+	cd "wireplumber-0.5.10"
 	DESTDIR="$pkgdir" ninja -C build install
 }

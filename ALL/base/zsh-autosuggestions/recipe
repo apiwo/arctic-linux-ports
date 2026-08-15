@@ -1,7 +1,8 @@
-# zsh-autosuggestions - Fish-like autosuggestions for zsh
-# Generated from manifest.tsv by gen-ports.py. Edit the manifest, not this file,
-# unless the package needs something the template cannot express - in which case
-# drop a `recipe.local` beside it and it will be preserved.
+# zsh-autosuggestions - fish-style suggestions from history as you type.
+#
+# Upstream's Makefile only builds the distributable .zsh file; there is no
+# install target, so the files go where /etc/zsh/zshrc already looks for
+# them.
 name=zsh-autosuggestions
 version=0.7.1
 release=1
@@ -10,15 +11,16 @@ url="https://github.com/zsh-users/zsh-autosuggestions"
 license="MIT"
 depend="zsh"
 makedepend=""
-source="https://github.com/zsh-users/zsh-autosuggestions/archive/refs/tags/v0.7.1.tar.gz"
+source="https://github.com/zsh-users/zsh-autosuggestions/archive/refs/tags/v$version.tar.gz"
 sha256="SKIP"
 
-build() {
-	cd "zsh-autosuggestions-0.7.1"
-	make -j"$JOBS" PREFIX=/usr
-}
-
 package() {
-	cd "zsh-autosuggestions-0.7.1"
-	make PREFIX=/usr DESTDIR="$pkgdir" install
+	cd "zsh-autosuggestions-$version"
+	d="$pkgdir/usr/share/zsh/plugins/zsh-autosuggestions"
+	install -Dm644 zsh-autosuggestions.zsh "$d/zsh-autosuggestions.zsh"
+	for f in src/*.zsh src/**/*.zsh; do
+		[ -f "$f" ] || continue
+		install -Dm644 "$f" "$d/$f"
+	done
+	install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$name/LICENSE"
 }

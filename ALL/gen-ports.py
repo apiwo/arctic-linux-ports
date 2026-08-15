@@ -315,6 +315,12 @@ def srcdir_for(name, version, source):
     # libxkbcommon-xkbcommon-1.13.2, and guessing from the filename alone put
     # the build in a directory that does not exist. Take the repo name from
     # the URL instead of inferring it.
+    # A Forgejo/Gitea archive (codeberg.org and friends) unpacks into a bare
+    # <repo>/ with no version in it at all, which is why foot's recipe says
+    # cd foot and fcft's generated "cd fcft-3.3.1" found nothing.
+    m = re.search(r"codeberg\.org/[^/]+/([^/]+)/archive/", first)
+    if m:
+        return m.group(1)
     m = re.search(
         r"github\.com/[^/]+/([^/]+)/archive/(?:refs/tags/)?(.+?)"
         r"\.(?:tar\.gz|tar\.xz|tar\.bz2|tgz|zip)$", first)

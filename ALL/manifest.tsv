@@ -189,7 +189,7 @@ extra	libavif	1.4.0	cmake	BSD-2-Clause	glibc,aom,dav1d	cmake,ninja	https://githu
 extra	ttf-dejavu	2.37	make	Bitstream-Vera	-	-	https://dejavu-fonts.github.io/	https://github.com/dejavu-fonts/dejavu-fonts/releases/download/version_{V_}/dejavu-fonts-ttf-{version}.tar.bz2	DejaVu font family
 extra	ttf-jetbrains-mono	2.304	make	OFL-1.1	-	-	https://www.jetbrains.com/lp/mono/	https://github.com/JetBrains/JetBrainsMono/releases/download/v{version}/JetBrainsMono-{version}.zip	JetBrains Mono, the Arctic terminal font
 extra	ttf-nerd-fonts-symbols	3.4.0	make	MIT	-	-	https://www.nerdfonts.com/	https://github.com/ryanoasis/nerd-fonts/releases/download/v{version}/NerdFontsSymbolsOnly.tar.xz	Nerd Font icon glyphs
-extra	noto-fonts	20260501	make	OFL-1.1	-	-	https://fonts.google.com/noto	https://github.com/notofonts/notofonts.github.io/archive/refs/tags/noto-monthly-release-{version}.tar.gz	Google Noto fonts
+extra	noto-fonts	2026.08.01	make	OFL-1.1	-	-	https://fonts.google.com/noto	https://github.com/notofonts/notofonts.github.io/archive/refs/tags/noto-monthly-release-{version}.tar.gz	Google Noto fonts
 extra	noto-fonts-emoji	2.051	make	OFL-1.1	-	-	https://github.com/googlefonts/noto-emoji	https://github.com/googlefonts/noto-emoji/archive/refs/tags/v{version}.tar.gz	Noto emoji fonts
 extra	liberation-fonts	2.1.5	make	OFL-1.1	-	-	https://github.com/liberationfonts/liberation-fonts	https://github.com/liberationfonts/liberation-fonts/files/7261482/liberation-fonts-ttf-{version}.tar.gz	Metric-compatible substitutes for Arial and Times
 extra	vscode	1.108.0	binary	MIT	glibc,electron,libsecret,libx11	nodejs,npm,python	https://github.com/microsoft/vscode	https://github.com/microsoft/vscode/archive/refs/tags/{version}.tar.gz	Visual Studio Code, built from source
@@ -244,6 +244,7 @@ base	intel-media-driver	26.1.0	cmake	MIT BSD-3-Clause	libva,gmmlib	cmake,ninja	h
 base	gmmlib	22.9.0	cmake	MIT	glibc	cmake,ninja	https://github.com/intel/gmmlib	https://github.com/intel/gmmlib/archive/refs/tags/intel-gmmlib-{version}.tar.gz	Intel Graphics Memory Management
 base	libvdpau	1.5	meson	MIT	glibc,libx11	meson,ninja	https://gitlab.freedesktop.org/vdpau/libvdpau	https://gitlab.freedesktop.org/vdpau/libvdpau/-/archive/{version}/libvdpau-{version}.tar.gz	Video Decode and Presentation API
 base	xorg-server	21.1.20	meson	MIT	glibc,mesa,libdrm,pixman,libxkbcommon,libxfont2	meson,ninja	https://x.org/	https://x.org/pub/individual/xserver/xorg-server-{version}.tar.xz	The X.Org display server
+base	xorg-xinit	1.4.4	autotools	MIT	glibc,libx11	-	https://x.org/	https://www.x.org/releases/individual/app/xinit-{version}.tar.xz	startx and the X session starter
 base	xorg-xwayland	24.1.9	meson	MIT	glibc,mesa,wayland,libdrm,pixman,libxkbcommon	meson,ninja	https://x.org/	https://x.org/pub/individual/xserver/xwayland-{version}.tar.xz	X server running on Wayland
 base	xcb-proto	1.17.0	autotools	MIT	python	-	https://xcb.freedesktop.org/	https://xorg.freedesktop.org/archive/individual/proto/xcb-proto-{version}.tar.xz	XML descriptions of the X protocol, needed to build libxcb
 base	xorgproto	2025.1	meson	MIT	-	meson,ninja	https://gitlab.freedesktop.org/xorg/proto/xorgproto	https://xorg.freedesktop.org/archive/individual/proto/xorgproto-{version}.tar.xz	X11 protocol headers
@@ -366,7 +367,7 @@ base	lightdm	1.32.0	autotools	GPL-3.0-only LGPL-3.0-only	glib,libxcb,libxcrypt	-
 #
 # --- audio and video
 base	pipewire	1.6.2	meson	MIT	glibc,alsa-lib,dbus,libsndfile,libusb	meson,ninja	https://pipewire.org/	https://gitlab.freedesktop.org/pipewire/pipewire/-/archive/{version}/pipewire-{version}.tar.gz	Audio and video server
-base	wireplumber	0.6.2	meson	MIT	pipewire,glib,lua	meson,ninja	https://pipewire.pages.freedesktop.org/wireplumber/	https://gitlab.freedesktop.org/pipewire/wireplumber/-/archive/{version}/wireplumber-{version}.tar.gz	PipeWire session manager
+base	wireplumber	0.5.10	meson	MIT	pipewire,glib,lua	meson,ninja	https://pipewire.pages.freedesktop.org/wireplumber/	https://gitlab.freedesktop.org/pipewire/wireplumber/-/archive/{version}/wireplumber-{version}.tar.gz	PipeWire session manager
 base	pipewire-alsa	1.6.2	meta	MIT	pipewire,alsa-lib	-	https://pipewire.org/	-	ALSA compatibility for PipeWire
 base	pipewire-pulse	1.6.2	meta	MIT	pipewire	-	https://pipewire.org/	-	PulseAudio compatibility for PipeWire
 base	alsa-lib	1.2.15	autotools	LGPL-2.1-or-later	glibc	-	https://alsa-project.org/	https://www.alsa-project.org/files/pub/lib/alsa-lib-{version}.tar.bz2	ALSA library
@@ -553,7 +554,7 @@ base	yazi	26.5.6	cargo	MIT	glibc,ffmpeg,libwebp	rust,cargo	https://yazi-rs.githu
 base	dankmaterialshell	1.5.0	meson	GPL-3.0-only	quickshell,niri,pipewire,ttf-jetbrains-mono	meson,ninja	https://github.com/AvengeMedia/DankMaterialShell	https://github.com/AvengeMedia/DankMaterialShell/archive/refs/tags/v{version}.tar.gz	DankMaterialShell, the DMS bar and shell for niri
 base	quickshell	0.2.0	cmake	LGPL-3.0-only	qt6-base,qt6-declarative,qt6-wayland,wayland,pipewire	cmake,ninja	https://quickshell.outfoxxed.me/	https://git.outfoxxed.me/outfoxxed/quickshell/archive/v{version}.tar.gz	Qt/QML toolkit for building Wayland shells
 base	picom	12.5	meson	MIT MPL-2.0	libx11,libxcb,mesa,libconfig,pixman,libev	meson,ninja	https://github.com/yshui/picom	https://github.com/yshui/picom/archive/refs/tags/v{version}.tar.gz	X11 compositor, shadows and fading
-base	libconfig	1.8.1	autotools	LGPL-2.1-or-later	glibc	-	https://hyperrealm.github.io/libconfig/	https://github.com/hyperrealm/libconfig/releases/download/v{version}/libconfig-{version}.tar.gz	Structured configuration file library
+base	libconfig	1.8.2	autotools	LGPL-2.1-or-later	glibc	-	https://hyperrealm.github.io/libconfig/	https://github.com/hyperrealm/libconfig/releases/download/v{version}/libconfig-{version}.tar.gz	Structured configuration file library
 base	libev	4.33	autotools	BSD-2-Clause	glibc	-	http://software.schmorp.de/pkg/libev.html	http://dist.schmorp.de/libev/libev-{version}.tar.gz	High performance event loop
 base	feh	3.10.3	make	MIT	libx11,imlib2,libxt	-	https://feh.finalrewind.org/	https://feh.finalrewind.org/feh-{version}.tar.bz2	Lightweight image viewer and wallpaper setter
 base	imlib2	1.12.5	autotools	Imlib2	libx11,libpng,libjpeg-turbo,freetype	-	https://docs.enlightenment.org/api/imlib2/html/	https://downloads.sourceforge.net/enlightenment/imlib2-{version}.tar.gz	Image loading and rendering library

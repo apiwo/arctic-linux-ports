@@ -3,22 +3,22 @@
 # unless the package needs something the template cannot express - in which case
 # drop a `recipe.local` beside it and it will be preserved.
 name=noto-fonts
-version=20260501
+version=2026.08.01
 release=1
 desc="Google Noto fonts"
 url="https://fonts.google.com/noto"
 license="OFL-1.1"
 depend=""
 makedepend=""
-source="https://github.com/notofonts/notofonts.github.io/archive/refs/tags/noto-monthly-release-20260501.tar.gz"
+source="https://github.com/notofonts/notofonts.github.io/archive/refs/tags/noto-monthly-release-2026.08.01.tar.gz"
 sha256="SKIP"
 
 build() {
-	cd "notofonts.github.io-noto-monthly-release-20260501"
+	cd "notofonts.github.io-noto-monthly-release-2026.08.01"
 	make -j"$JOBS" PREFIX=/usr
 }
 
 package() {
-	cd "notofonts.github.io-noto-monthly-release-20260501"
+	cd "notofonts.github.io-noto-monthly-release-2026.08.01"
 	make PREFIX=/usr DESTDIR="$pkgdir" install
 }

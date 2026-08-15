@@ -1,7 +1,4 @@
 # st - The suckless simple terminal
-# Generated from manifest.tsv by gen-ports.py. Edit the manifest, not this file,
-# unless the package needs something the template cannot express - in which case
-# drop a `recipe.local` beside it and it will be preserved.
 name=st
 version=0.9.3
 release=1
@@ -18,6 +15,12 @@ build() {
 	# Suckless software is configured in the source. Arctic ships a config.h
 	# with the Arctic palette; replace it and rebuild to change anything.
 	[ -f config.def.h ] && cp -f config.def.h config.h
+	# "tic -sx st.info" compiles the terminfo entry into the host's
+	# /usr/share/terminfo, which the build sandbox refuses ("Operation not
+	# permitted") and which fails the whole install. $TERMINFO is not enough
+	# - tic only consults it for a *user* database - so point it at the
+	# package explicitly with -o, where the entry belongs anyway.
+	sed -i 's|tic -sx st.info|tic -sx -o "$(DESTDIR)$(PREFIX)/share/terminfo" st.info|' Makefile
 	make -j"$JOBS" PREFIX=/usr
 }
 

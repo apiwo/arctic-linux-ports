@@ -1,4 +1,10 @@
 # dwm - the suckless dynamic window manager, on X11.
+#
+# dwm is configured by editing config.h and recompiling. Upstream ships
+# config.def.h and copies it to config.h on first build; this recipe starts
+# from that and changes only the font, the terminal and the accent colour, so
+# a new dwm release stays a version bump rather than a merge of someone
+# else's whole config.
 name=dwm
 version=6.6
 release=1
@@ -7,14 +13,21 @@ url="https://dwm.suckless.org/"
 license="MIT"
 depend="glibc libx11 libxft libxinerama freetype fontconfig"
 makedepend="bmake clang lld"
-source="https://dl.suckless.org/dwm/dwm-$version.tar.gz
-	config.h"
-sha256="SKIP
-	SKIP"
+source="https://dl.suckless.org/dwm/dwm-$version.tar.gz"
+sha256="SKIP"
 
 build() {
 	cd "dwm-$version"
-	cp ../config.h config.h
+	cp config.def.h config.h
+	# JetBrains Mono is what the rest of Arctic's desktop uses, st is the
+	# terminal the apiwow-dwm profile installs, and the accent is the same
+	# neutral grey rather than dwm's default cyan.
+	sed -i \
+		-e 's|"monospace:size=10"|"JetBrainsMono Nerd Font:size=11"|' \
+		-e 's|"monospace"|"JetBrainsMono Nerd Font"|' \
+		-e 's|col_cyan\[\]       = "#005577"|col_cyan[]       = "#4c566a"|' \
+		-e 's|"st", NULL|"st", NULL|' \
+		config.h
 	make -j"$JOBS" PREFIX=/usr FREETYPEINC=/usr/include/freetype2
 }
 

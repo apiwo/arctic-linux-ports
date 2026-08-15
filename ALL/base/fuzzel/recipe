@@ -14,7 +14,7 @@ source="https://codeberg.org/dnkl/fuzzel/archive/1.13.0.tar.gz"
 sha256="SKIP"
 
 build() {
-	cd "fuzzel-1.13.0"
+	cd "fuzzel"
 	meson setup build \
 		--prefix=/usr \
 		--libdir=/usr/lib \
@@ -27,6 +27,6 @@ build() {
 }
 
 package() {
-	cd "fuzzel-1.13.0"
+	cd "fuzzel"
 	DESTDIR="$pkgdir" ninja -C build install
 }

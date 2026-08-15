@@ -12,6 +12,12 @@ sha256="SKIP"
 
 build() {
 	cd foot
+	# foot builds with -Werror, and its own tokenize.c drops const from a
+	# strchr() result, which newer compilers reject. The code is upstream's
+	# and correct at runtime; downgrade that one check rather than carry a
+	# patch against every release.
+	CFLAGS="$CFLAGS -Wno-error=discarded-qualifiers"
+	export CFLAGS
 	meson setup build --prefix=/usr --buildtype=release \
 		-Dgrapheme-clustering=enabled -Dterminfo=disabled
 	ninja -C build -j"$JOBS"

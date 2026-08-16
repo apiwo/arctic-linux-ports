@@ -1,13 +1,17 @@
 # mesa - the graphics stack for AMD, Intel and everything else free.
 name=mesa
 version=26.0.2
-release=1
+release=2
 desc="Open source OpenGL and Vulkan implementation"
 url="https://mesa3d.org/"
 license="MIT"
+# mesa is not split here the way other distributions split it: the Vulkan
+# ICDs, the VA driver and the software rasteriser are all in this package,
+# and these names are what an installer or a profile asks for.
+provides="vulkan-radeon vulkan-intel vulkan-swrast libva-mesa-driver"
 depend="glibc libdrm wayland libx11 zlib zstd expat llvm libclc spirv-llvm-translator"
 makedepend="meson ninja clang lld python"
-provides="opengl vulkan"
+_old_provides="opengl vulkan"
 source="https://archive.mesa3d.org/mesa-$version.tar.xz"
 sha256="SKIP"
 
@@ -27,6 +31,7 @@ build() {
 	# of the command - which is how -Dvulkan-drivers went missing, left
 	# vulkan-drivers at "auto", and put NVK back in.
 	meson setup build --prefix=/usr --buildtype=release \
+		--libdir=lib \
 		-Dgallium-drivers=iris,crocus,radeonsi,r300,r600,nouveau,llvmpipe,softpipe,zink,virgl,svga \
 		-Dvulkan-drivers=amd,intel,intel_hasvk,swrast \
 		-Dplatforms=wayland,x11 \

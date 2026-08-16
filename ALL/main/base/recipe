@@ -3,12 +3,12 @@
 # unless the package needs something the template cannot express - in which case
 # drop a `recipe.local` beside it and it will be preserved.
 name=base
-version=1.0.0
+version=1.0.1
 release=1
 desc="A minimal but complete Arctic system"
 url="https://github.com/apiwo/arctic-linux"
 license="BSD-2-Clause"
-depend="glibc busybox toybox zsh doas alpm arctic-base arctic-init curl libarchive mandoc onetrueawk libxcrypt iana-etc tzdata ca-certificates"
+depend="glibc busybox toybox zsh doas alpm arctic-base arctic-init curl libarchive mandoc onetrueawk libxcrypt iana-etc tzdata ca-certificates signify"
 makedepend=""
 source=""
 sha256=""
@@ -17,5 +17,5 @@ sha256=""
 # in a working setup and nothing else.
 package() {
 	install -d "$pkgdir/usr/share/arctic/meta"
-	printf '%s\n' "glibc busybox toybox zsh doas alpm arctic-base arctic-init curl libarchive mandoc onetrueawk libxcrypt iana-etc tzdata ca-certificates" >"$pkgdir/usr/share/arctic/meta/base"
+	printf '%s\n' "glibc busybox toybox zsh doas alpm arctic-base arctic-init curl libarchive mandoc onetrueawk libxcrypt iana-etc tzdata ca-certificates signify" >"$pkgdir/usr/share/arctic/meta/base"
 }

@@ -94,7 +94,7 @@ main	alpm	1.0.0	meta	BSD-2-Clause	busybox	-	https://github.com/apiwo/arctic-linu
 main	arctic-base	1.0.0	meta	BSD-2-Clause	busybox,toybox,zsh,doas,alpm,libxcrypt	-	https://github.com/apiwo/arctic-linux	-	Arctic base configuration, init and branding
 main	arctic-init	1.0.0	meta	BSD-2-Clause	busybox,arctic-base	-	https://github.com/apiwo/arctic-linux	-	The Arctic init scripts and service manager
 main	gmp-alt	6.3.0	autotools	LGPL-3.0-or-later	glibc	-	https://gmplib.org/	https://gmplib.org/download/gmp/gmp-{version}.tar.xz	Arbitrary precision arithmetic, for nftables
-main	base	1.0.0	meta	BSD-2-Clause	glibc,busybox,toybox,zsh,doas,alpm,arctic-base,arctic-init,curl,libarchive,mandoc,onetrueawk,libxcrypt,iana-etc,tzdata,ca-certificates	-	https://github.com/apiwo/arctic-linux	-	A minimal but complete Arctic system
+main	base	1.0.1	meta	BSD-2-Clause	glibc,busybox,toybox,zsh,doas,alpm,arctic-base,arctic-init,curl,libarchive,mandoc,onetrueawk,libxcrypt,iana-etc,tzdata,ca-certificates,signify	-	https://github.com/apiwo/arctic-linux	-	A minimal but complete Arctic system
 main	base-devel	1.0.0	meta	BSD-2-Clause	llvm,bmake,byacc,pkgconf,cmake,ninja,meson,git,patch-bsd,flex-alt	-	https://github.com/apiwo/arctic-linux	-	The toolchain needed to build Arctic packages
 main	llvm	22.1.8	cmake	Apache-2.0-with-LLVM-exception	glibc,zlib,zstd,libffi	cmake,ninja,python	https://llvm.org/	https://github.com/llvm/llvm-project/releases/download/llvmorg-{version}/llvm-project-{version}.src.tar.xz	clang, lld, libc++, the Arctic toolchain
 main	cmake	4.2.1	autotools	BSD-3-Clause	glibc,libressl,curl,expat,zlib,libarchive,netbsd-curses	-	https://cmake.org/	https://github.com/Kitware/CMake/releases/download/v{version}/cmake-{version}.tar.gz	Cross-platform build generator
@@ -584,3 +584,4 @@ main	dinit	0.19.4	make	Apache-2.0	glibc	-	https://github.com/davmac314/dinit	htt
 profile	arctic-sound	1.0.0	meta	BSD-2-Clause	pipewire,wireplumber,pipewire-pulse,alsa-lib,alsa-utils	-	https://github.com/apiwo/arctic-linux	-	PipeWire, WirePlumber and alsamixer, configured and enabled
 extra	libluv	1.51.0	cmake	Apache-2.0	glibc,libuv,luajit	cmake,ninja	https://github.com/luvit/luv	https://github.com/luvit/luv/releases/download/{version}-0/luv-{version}-0.tar.gz	libuv bindings for Lua, needed by neovim
 profile	lazyvim	1.0.0	meta	MIT	neovim,git	-	https://www.lazyvim.org/	-	Sets up the official LazyVim starter config, on request, per user
+main	signify	33	make	ISC	glibc	-	https://github.com/aperezdc/signify	https://github.com/aperezdc/signify/archive/refs/tags/v{version}.tar.gz	Cryptographically sign and verify files (Ed25519)

@@ -1,0 +1,30 @@
+# signify - OpenBSD's signature tool.
+#
+# This is what verifies a repository index. Ed25519, one line of public key,
+# no key servers, no web of trust and no GPG anywhere near the base system -
+# which is the point: alpm has to be able to check a signature on a machine
+# that has just been installed, and the whole verifier is one small binary
+# with no dependency beyond libc.
+#
+# The portable build carries its own crypto (ed25519, blowfish, sha2) rather
+# than linking libbsd, so nothing else has to be packaged for it.
+name=signify
+version=33
+release=1
+desc="Cryptographically sign and verify files (Ed25519)"
+url="https://github.com/aperezdc/signify"
+license="ISC"
+depend="glibc"
+makedepend=""
+source="signify-$version.tar.gz::https://github.com/aperezdc/signify/archive/refs/tags/v$version.tar.gz"
+sha256="SKIP"
+
+build() {
+	cd "signify-$version"
+	make -j"$JOBS" PREFIX=/usr
+}
+
+package() {
+	cd "signify-$version"
+	make install DESTDIR="$pkgdir" PREFIX=/usr
+}

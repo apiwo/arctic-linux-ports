@@ -1,0 +1,2 @@
+# Hand-written: the portable signify builds with a plain Makefile that takes
+# PREFIX and DESTDIR, and the generic make template does not pass PREFIX.

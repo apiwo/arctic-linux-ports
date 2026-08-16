@@ -4,7 +4,11 @@
 # drop a `recipe.local` beside it and it will be preserved.
 name=util-linux-libs
 version=2.42.1
-release=1
+release=2
+# toybox ships blkid, mount, umount and friends as fallback applets under
+# the same names. This package carries the real implementations and is
+# meant to take those paths over.
+replaces="toybox"
 desc="libblkid, libmount and libuuid only"
 url="https://github.com/util-linux/util-linux"
 license="LGPL-2.1-or-later"

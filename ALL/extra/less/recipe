@@ -4,7 +4,10 @@
 # drop a `recipe.local` beside it and it will be preserved.
 name=less
 version=679
-release=1
+release=2
+# busybox ships a cut-down less under the same name. This package carries
+# the real implementation and is meant to take that path over.
+replaces="busybox"
 desc="Terminal pager"
 url="https://greenwoodsoftware.com/less/"
 license="GPL-3.0-or-later BSD-2-Clause"

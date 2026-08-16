@@ -1,7 +1,7 @@
 # libressl - OpenBSD TLS, Arctic's default
 name=libressl
 version=4.2.0
-release=3
+release=4
 desc="OpenBSD TLS, Arctic's default"
 url="https://www.libressl.org/"
 license="ISC Apache-2.0"

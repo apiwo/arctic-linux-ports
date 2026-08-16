@@ -246,7 +246,7 @@ base	libvdpau	1.5	meson	MIT	glibc,libx11	meson,ninja	https://gitlab.freedesktop.
 base	xorg-server	21.1.20	meson	MIT	glibc,mesa,libdrm,pixman,libxkbcommon,libxfont2	meson,ninja	https://x.org/	https://x.org/pub/individual/xserver/xorg-server-{version}.tar.xz	The X.Org display server
 base	xorg-xinit	1.4.4	autotools	MIT	glibc,libx11	-	https://x.org/	https://www.x.org/releases/individual/app/xinit-{version}.tar.xz	startx and the X session starter
 base	xorg-xwayland	24.1.9	meson	MIT	glibc,mesa,wayland,libdrm,pixman,libxkbcommon	meson,ninja	https://x.org/	https://x.org/pub/individual/xserver/xwayland-{version}.tar.xz	X server running on Wayland
-base	xcb-proto	1.17.0	autotools	MIT	python	-	https://xcb.freedesktop.org/	https://xorg.freedesktop.org/archive/individual/proto/xcb-proto-{version}.tar.xz	XML descriptions of the X protocol, needed to build libxcb
+base	xcb-proto	1.17.0	autotools	MIT	glibc	python	https://xcb.freedesktop.org/	https://xorg.freedesktop.org/archive/individual/proto/xcb-proto-{version}.tar.xz	XML descriptions of the X protocol, needed to build libxcb
 base	xorgproto	2025.1	meson	MIT	-	meson,ninja	https://gitlab.freedesktop.org/xorg/proto/xorgproto	https://xorg.freedesktop.org/archive/individual/proto/xorgproto-{version}.tar.xz	X11 protocol headers
 base	libx11	1.8.13	autotools	MIT	glibc,libxcb	-	https://x.org/	https://x.org/pub/individual/lib/libX11-{version}.tar.xz	X11 client library
 base	libxcb	1.17.0	autotools	MIT	glibc,libxau,libxdmcp,xcb-proto	-	https://x.org/	https://x.org/pub/individual/lib/libxcb-{version}.tar.xz	X protocol C-language binding

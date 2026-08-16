@@ -2,14 +2,19 @@
 # Generated from manifest.tsv by gen-ports.py. Edit the manifest, not this file,
 # unless the package needs something the template cannot express - in which case
 # drop a `recipe.local` beside it and it will be preserved.
+# python is a *build* dependency, not a runtime one: xcb-proto is XML
+# descriptions plus a module libxcb's generator imports while it compiles.
+# Recorded as a runtime dependency it followed libxcb onto every machine that
+# installed mesa, and since python has no binary package the install stopped
+# to offer to compile one - on a target with no compiler.
 name=xcb-proto
 version=1.17.0
-release=1
+release=2
 desc="XML descriptions of the X protocol, needed to build libxcb"
 url="https://xcb.freedesktop.org/"
 license="MIT"
-depend="python"
-makedepend=""
+depend="glibc"
+makedepend="python"
 source="https://xorg.freedesktop.org/archive/individual/proto/xcb-proto-1.17.0.tar.xz"
 sha256="SKIP"
 

@@ -1,0 +1,33 @@
+# openbox - A highly configurable stacking window manager
+# Generated from manifest.tsv by gen-ports.py. Edit the manifest, not this file,
+# unless the package needs something the template cannot express - in which case
+# drop a `recipe.local` beside it and it will be preserved.
+name=openbox
+version=3.6.1
+release=1
+desc="A highly configurable stacking window manager"
+url="http://openbox.org/"
+license="GPL-2.0-or-later"
+depend="glibc libx11 libxml2 pango glib libxrandr libxinerama libxcursor imlib2 startup-notification"
+makedepend=""
+source="http://openbox.org/dist/openbox/openbox-3.6.1.tar.gz"
+sha256="SKIP"
+
+build() {
+	cd "openbox-3.6.1"
+	# Not every configure script accepts the same options - sqlite rejects
+	# --disable-nls outright, for instance - so only pass the ones this one
+	# actually advertises. Guessing wrong fails the whole build.
+	_opts="--prefix=/usr --sysconfdir=/etc --localstatedir=/var --libdir=/usr/lib"
+	_help=$(./configure --help 2>/dev/null)
+	case "$_help" in *--disable-static*)  _opts="$_opts --disable-static" ;; esac
+	case "$_help" in *--disable-nls*)     _opts="$_opts --disable-nls" ;; esac
+	# shellcheck disable=SC2086
+	./configure $_opts
+	make -j"$JOBS"
+}
+
+package() {
+	cd "openbox-3.6.1"
+	make DESTDIR="$pkgdir" install
+}

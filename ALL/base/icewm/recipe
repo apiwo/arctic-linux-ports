@@ -1,0 +1,27 @@
+# icewm - A small, fast window manager
+# Generated from manifest.tsv by gen-ports.py. Edit the manifest, not this file,
+# unless the package needs something the template cannot express - in which case
+# drop a `recipe.local` beside it and it will be preserved.
+name=icewm
+version=3.7.4
+release=1
+desc="A small, fast window manager"
+url="https://ice-wm.org/"
+license="LGPL-2.0-or-later"
+depend="glibc libx11 libxext libxrandr libxinerama libxft libxpm fontconfig freetype"
+makedepend=""
+source="https://github.com/ice-wm/icewm/archive/refs/tags/3.7.4.tar.gz"
+sha256="SKIP"
+
+build() {
+	cmake -S "icewm-3.7.4" -B build -G Ninja \
+		-DCMAKE_INSTALL_PREFIX=/usr \
+		-DCMAKE_INSTALL_LIBDIR=lib \
+		-DCMAKE_BUILD_TYPE=Release \
+		-DBUILD_SHARED_LIBS=ON
+	ninja -C build -j"$JOBS"
+}
+
+package() {
+	DESTDIR="$pkgdir" ninja -C build install
+}

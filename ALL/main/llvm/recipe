@@ -3,13 +3,18 @@
 # machines as a stage-0 tool for glibc, and is never packaged.
 name=llvm
 version=22.1.8
-release=1
+release=2
 desc="The LLVM compiler infrastructure: clang, lld, libc++, lldb"
 url="https://llvm.org/"
 license="Apache-2.0-with-LLVM-exception"
 depend="glibc zlib zstd"
 makedepend="cmake ninja python"
 provides="clang lld libcxx compiler"
+# AMDGPU is in the target list because mesa needs it, not because Arctic
+# targets AMD GPUs as a platform: radeonsi asks llvm-config for an amdgpu
+# component and mesa refuses to configure without it, then tries to build
+# LLVM as a subproject of itself.
+#
 # lldb and polly are left out deliberately. lldb wants swig and libedit and
 # is the part of an LLVM build most likely to fail on a machine that does not
 # have them; polly is an optimiser most packages never ask for. Neither is
@@ -30,7 +35,7 @@ build() {
 		-DCMAKE_INSTALL_PREFIX=/usr \
 		-DLLVM_ENABLE_PROJECTS="clang;clang-tools-extra;lld" \
 		-DLLVM_ENABLE_RUNTIMES="libcxx;libcxxabi;libunwind;compiler-rt" \
-		-DLLVM_TARGETS_TO_BUILD="X86;AArch64;RISCV;WebAssembly" \
+		-DLLVM_TARGETS_TO_BUILD="X86;AArch64;RISCV;WebAssembly;AMDGPU" \
 		-DLLVM_ENABLE_LLD=ON \
 		-DLLVM_LINK_LLVM_DYLIB=ON \
 		-DLLVM_ENABLE_RTTI=ON \

@@ -1,0 +1,29 @@
+# spirv-llvm-translator - LLVM IR to SPIR-V translator
+# Generated from manifest.tsv by gen-ports.py. Edit the manifest, not this file,
+# unless the package needs something the template cannot express - in which case
+# drop a `recipe.local` beside it and it will be preserved.
+name=spirv-llvm-translator
+version=22.1.5
+release=1
+desc="LLVM IR to SPIR-V translator"
+url="https://github.com/KhronosGroup/SPIRV-LLVM-Translator"
+license="NCSA"
+depend="glibc llvm"
+makedepend="cmake ninja llvm"
+source="https://github.com/KhronosGroup/SPIRV-LLVM-Translator/archive/refs/tags/v22.1.5.tar.gz"
+sha256="SKIP"
+
+build() {
+	cmake -S "SPIRV-LLVM-Translator-22.1.5" -B build -G Ninja \
+		-DCMAKE_INSTALL_PREFIX=/usr \
+		-DCMAKE_INSTALL_LIBDIR=lib \
+		-DCMAKE_BUILD_TYPE=Release \
+		-DBUILD_SHARED_LIBS=ON \
+		-DLLVM_SPIRV_INCLUDE_TESTS=OFF \
+		-DLLVM_EXTERNAL_SPIRV_HEADERS_SOURCE_DIR=/usr/include
+	ninja -C build -j"$JOBS"
+}
+
+package() {
+	DESTDIR="$pkgdir" ninja -C build install
+}

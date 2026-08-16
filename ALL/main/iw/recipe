@@ -1,0 +1,26 @@
+# iw - the nl80211 command line tool.
+#
+# Without this there is no way to find out what wireless networks are in
+# range: wpa_supplicant can associate with a network whose name you already
+# know, and nothing else on the live image can tell you one. `wifi-connect`
+# is built on it.
+name=iw
+version=6.17
+release=1
+desc="Configure and scan wireless devices through nl80211"
+url="https://wireless.wiki.kernel.org/en/users/documentation/iw"
+license="ISC"
+depend="glibc libnl"
+makedepend="pkgconf"
+source="https://www.kernel.org/pub/software/network/iw/iw-$version.tar.xz"
+sha256="SKIP"
+
+build() {
+	cd "iw-$version"
+	make V=1 PREFIX=/usr
+}
+
+package() {
+	cd "iw-$version"
+	make install DESTDIR="$pkgdir" PREFIX=/usr SBINDIR=/usr/bin
+}

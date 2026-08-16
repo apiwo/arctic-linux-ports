@@ -4,7 +4,7 @@
 # drop a `recipe.local` beside it and it will be preserved.
 name=libdrm
 version=2.4.130
-release=1
+release=2
 desc="Direct Rendering Manager library"
 url="https://dri.freedesktop.org/"
 license="MIT"
@@ -22,6 +22,12 @@ build() {
 		--localstatedir=/var \
 		--buildtype=release \
 		--wrap-mode=nodownload \
+		-Damdgpu=enabled \
+		-Dradeon=enabled \
+		-Dintel=enabled \
+		-Dnouveau=enabled \
+		-Dvmwgfx=enabled \
+		-Dman-pages=disabled \
 		-Db_lto=true
 	ninja -C build -j"$JOBS"
 }

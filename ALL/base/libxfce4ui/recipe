@@ -3,18 +3,18 @@
 # unless the package needs something the template cannot express - in which case
 # drop a `recipe.local` beside it and it will be preserved.
 name=libxfce4ui
-version=4.22.0
+version=4.20.2
 release=1
 desc="Xfce widget library"
 url="https://xfce.org/"
 license="LGPL-2.0-or-later"
 depend="gtk3 libxfce4util xfconf"
 makedepend=""
-source="https://archive.xfce.org/src/xfce/libxfce4ui/4.22/libxfce4ui-4.22.0.tar.bz2"
+source="https://archive.xfce.org/src/xfce/libxfce4ui/4.20/libxfce4ui-4.20.2.tar.bz2"
 sha256="SKIP"
 
 build() {
-	cd "libxfce4ui-4.22.0"
+	cd "libxfce4ui-4.20.2"
 	# Not every configure script accepts the same options - sqlite rejects
 	# --disable-nls outright, for instance - so only pass the ones this one
 	# actually advertises. Guessing wrong fails the whole build.
@@ -28,6 +28,6 @@ build() {
 }
 
 package() {
-	cd "libxfce4ui-4.22.0"
+	cd "libxfce4ui-4.20.2"
 	make DESTDIR="$pkgdir" install
 }

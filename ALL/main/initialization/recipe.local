@@ -1,0 +1,2 @@
+# Hand-written: pinned to a commit (the fork has no tags) and it must not
+# install its own /usr/bin/service, which arctic-base owns.

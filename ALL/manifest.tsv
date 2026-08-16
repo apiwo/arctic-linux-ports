@@ -175,7 +175,7 @@ extra	p7zip	17.06	make	LGPL-2.1-or-later	glibc	-	https://github.com/p7zip-projec
 extra	pigz	2.8	make	Zlib	glibc,zlib	-	https://zlib.net/pigz/	https://zlib.net/pigz/pigz-{version}.tar.gz	Parallel gzip
 extra	xdg-utils	1.1.3	autotools	MIT	glibc	-	https://www.freedesktop.org/wiki/Software/xdg-utils/	https://portland.freedesktop.org/download/xdg-utils-{version}.tar.gz	Desktop integration helpers
 extra	xdg-desktop-portal	1.22.0	meson	LGPL-2.1-or-later	glibc,glib,dbus,fuse3,pipewire	meson,ninja	https://github.com/flatpak/xdg-desktop-portal	https://github.com/flatpak/xdg-desktop-portal/releases/download/{version}/xdg-desktop-portal-{version}.tar.xz	Sandboxed application portal
-extra	fuse3	3.18.1	meson	LGPL-2.1-only GPL-2.0-only	glibc	meson,ninja	https://github.com/libfuse/libfuse	https://github.com/libfuse/libfuse/releases/download/fuse-{version}/fuse-{version}.tar.xz	Filesystem in userspace
+extra	fuse3	3.18.1	meson	LGPL-2.1-only GPL-2.0-only	glibc	meson,ninja	https://github.com/libfuse/libfuse	https://github.com/libfuse/libfuse/releases/download/fuse-{version}/fuse-{version}.tar.gz	Filesystem in userspace
 extra	fontconfig	2.16.0	meson	MIT	glibc,freetype,expat	meson,ninja	https://www.freedesktop.org/wiki/Software/fontconfig/	https://www.freedesktop.org/software/fontconfig/release/fontconfig-{version}.tar.xz	Font configuration and matching
 extra	freetype	2.14.1	meson	FTL GPL-2.0-or-later	glibc,zlib,bzip2,libpng,brotli	meson,ninja	https://freetype.org/	https://download.savannah.gnu.org/releases/freetype/freetype-{version}.tar.xz	Font rendering engine
 extra	harfbuzz	12.2.0	meson	MIT	glibc,freetype,glib,cairo	meson,ninja	https://harfbuzz.github.io/	https://github.com/harfbuzz/harfbuzz/releases/download/{version}/harfbuzz-{version}.tar.xz	Text shaping engine
@@ -336,22 +336,22 @@ base	grim	1.6.0	meson	MIT	wayland,cairo,libpng	meson,ninja	https://sr.ht/~emersi
 base	slurp	1.5.0	meson	MIT	wayland,cairo	meson,ninja	https://github.com/emersion/slurp	https://github.com/emersion/slurp/archive/refs/tags/v{version}.tar.gz	Select a region on Wayland
 base	wl-clipboard	2.2.1	meson	GPL-3.0-or-later	wayland	meson,ninja	https://github.com/bugaevc/wl-clipboard	https://github.com/bugaevc/wl-clipboard/archive/refs/tags/v{version}.tar.gz	Clipboard tools for Wayland
 base	xfce4-meta	4.22	meta	GPL-2.0-or-later	xfwm4,xfce4-panel,xfce4-session,xfdesktop,thunar,xfce4-settings,xfce4-appfinder,xfce4-terminal,xfconf,garcon,exo,tumbler,xorg-server,xfce4-notifyd,xfce4-screenshooter	-	https://xfce.org/	-	The Xfce desktop environment
-base	xfwm4	4.22.0	autotools	GPL-2.0-or-later	gtk3,libwnck,libxfce4ui	-	https://xfce.org/	https://archive.xfce.org/src/xfce/xfwm4/4.22/xfwm4-{version}.tar.bz2	The Xfce window manager
-base	xfce4-panel	4.22.0	autotools	GPL-2.0-or-later	gtk3,libxfce4ui,garcon,exo	-	https://xfce.org/	https://archive.xfce.org/src/xfce/xfce4-panel/4.22/xfce4-panel-{version}.tar.bz2	The Xfce panel
-base	xfce4-session	4.22.0	autotools	GPL-2.0-or-later	gtk3,libxfce4ui,libwnck	-	https://xfce.org/	https://archive.xfce.org/src/xfce/xfce4-session/4.22/xfce4-session-{version}.tar.bz2	The Xfce session manager
-base	xfdesktop	4.22.0	autotools	GPL-2.0-or-later	gtk3,libxfce4ui,thunar	-	https://xfce.org/	https://archive.xfce.org/src/xfce/xfdesktop/4.22/xfdesktop-{version}.tar.bz2	The Xfce desktop manager
-base	thunar	4.22.0	autotools	GPL-2.0-or-later	gtk3,libxfce4ui,exo,libgudev	-	https://xfce.org/	https://archive.xfce.org/src/xfce/thunar/4.22/thunar-{version}.tar.bz2	The Xfce file manager
-base	xfce4-settings	4.22.0	autotools	GPL-2.0-or-later	gtk3,libxfce4ui,libinput,xorg-server	-	https://xfce.org/	https://archive.xfce.org/src/xfce/xfce4-settings/4.22/xfce4-settings-{version}.tar.bz2	Xfce settings manager
-base	xfce4-appfinder	4.22.0	autotools	GPL-2.0-or-later	gtk3,libxfce4ui,garcon	-	https://xfce.org/	https://archive.xfce.org/src/xfce/xfce4-appfinder/4.22/xfce4-appfinder-{version}.tar.bz2	Xfce application finder
-base	xfce4-terminal	1.2.0	autotools	GPL-2.0-or-later	gtk3,libxfce4ui,vte3	-	https://xfce.org/	https://archive.xfce.org/src/apps/xfce4-terminal/1.2/xfce4-terminal-{version}.tar.bz2	The Xfce terminal
+base	xfwm4	4.20.0	autotools	GPL-2.0-or-later	gtk3,libwnck,libxfce4ui	-	https://xfce.org/	https://archive.xfce.org/src/xfce/{name}/4.20/{name}-{version}.tar.bz2	The Xfce window manager
+base	xfce4-panel	4.20.8	autotools	GPL-2.0-or-later	gtk3,libxfce4ui,garcon,exo	-	https://xfce.org/	https://archive.xfce.org/src/xfce/{name}/4.20/{name}-{version}.tar.bz2	The Xfce panel
+base	xfce4-session	4.20.4	autotools	GPL-2.0-or-later	gtk3,libxfce4ui,libwnck	-	https://xfce.org/	https://archive.xfce.org/src/xfce/{name}/4.20/{name}-{version}.tar.bz2	The Xfce session manager
+base	xfdesktop	4.20.2	autotools	GPL-2.0-or-later	gtk3,libxfce4ui,thunar	-	https://xfce.org/	https://archive.xfce.org/src/xfce/{name}/4.20/{name}-{version}.tar.bz2	The Xfce desktop manager
+base	thunar	4.20.9	autotools	GPL-2.0-or-later	gtk3,libxfce4ui,exo,libgudev	-	https://xfce.org/	https://archive.xfce.org/src/xfce/{name}/4.20/{name}-{version}.tar.bz2	The Xfce file manager
+base	xfce4-settings	4.20.5	autotools	GPL-2.0-or-later	gtk3,libxfce4ui,libinput,xorg-server	-	https://xfce.org/	https://archive.xfce.org/src/xfce/{name}/4.20/{name}-{version}.tar.bz2	Xfce settings manager
+base	xfce4-appfinder	4.20.0	autotools	GPL-2.0-or-later	gtk3,libxfce4ui,garcon	-	https://xfce.org/	https://archive.xfce.org/src/xfce/{name}/4.20/{name}-{version}.tar.bz2	Xfce application finder
+base	xfce4-terminal	1.2.0	autotools	GPL-2.0-or-later	gtk3,libxfce4ui,vte3	-	https://xfce.org/	https://archive.xfce.org/src/apps/xfce4-terminal/1.2/xfce4-terminal-{version}.tar.xz	The Xfce terminal
 base	xfce4-notifyd	0.9.7	autotools	GPL-2.0-or-later	gtk3,libxfce4ui	-	https://xfce.org/	https://archive.xfce.org/src/apps/xfce4-notifyd/0.9/xfce4-notifyd-{version}.tar.bz2	Xfce notification daemon
 base	xfce4-screenshooter	1.11.1	autotools	GPL-2.0-or-later	gtk3,libxfce4ui	-	https://xfce.org/	https://archive.xfce.org/src/apps/xfce4-screenshooter/1.11/xfce4-screenshooter-{version}.tar.bz2	Xfce screenshot tool
-base	xfconf	4.22.0	autotools	GPL-2.0-or-later	glib,libxfce4util	-	https://xfce.org/	https://archive.xfce.org/src/xfce/xfconf/4.22/xfconf-{version}.tar.bz2	Xfce configuration storage
-base	libxfce4util	4.22.0	autotools	LGPL-2.0-or-later	glib	-	https://xfce.org/	https://archive.xfce.org/src/xfce/libxfce4util/4.22/libxfce4util-{version}.tar.bz2	Xfce utility library
-base	libxfce4ui	4.22.0	autotools	LGPL-2.0-or-later	gtk3,libxfce4util,xfconf	-	https://xfce.org/	https://archive.xfce.org/src/xfce/libxfce4ui/4.22/libxfce4ui-{version}.tar.bz2	Xfce widget library
-base	garcon	4.22.0	autotools	LGPL-2.0-or-later	glib,libxfce4util	-	https://xfce.org/	https://archive.xfce.org/src/xfce/garcon/4.22/garcon-{version}.tar.bz2	Freedesktop menu library
-base	exo	4.22.0	autotools	LGPL-2.0-or-later	gtk3,libxfce4util	-	https://xfce.org/	https://archive.xfce.org/src/xfce/exo/4.22/exo-{version}.tar.bz2	Xfce extension library
-base	tumbler	4.22.0	autotools	LGPL-2.0-or-later	glib,gdk-pixbuf,libpng,freetype	-	https://xfce.org/	https://archive.xfce.org/src/xfce/tumbler/4.22/tumbler-{version}.tar.bz2	Thumbnail service
+base	xfconf	4.20.0	autotools	GPL-2.0-or-later	glib,libxfce4util	-	https://xfce.org/	https://archive.xfce.org/src/xfce/{name}/4.20/{name}-{version}.tar.bz2	Xfce configuration storage
+base	libxfce4util	4.20.1	autotools	LGPL-2.0-or-later	glib	-	https://xfce.org/	https://archive.xfce.org/src/xfce/{name}/4.20/{name}-{version}.tar.bz2	Xfce utility library
+base	libxfce4ui	4.20.2	autotools	LGPL-2.0-or-later	gtk3,libxfce4util,xfconf	-	https://xfce.org/	https://archive.xfce.org/src/xfce/{name}/4.20/{name}-{version}.tar.bz2	Xfce widget library
+base	garcon	4.20.0	autotools	LGPL-2.0-or-later	glib,libxfce4util	-	https://xfce.org/	https://archive.xfce.org/src/xfce/{name}/4.20/{name}-{version}.tar.bz2	Freedesktop menu library
+base	exo	4.20.0	autotools	LGPL-2.0-or-later	gtk3,libxfce4util	-	https://xfce.org/	https://archive.xfce.org/src/xfce/{name}/4.20/{name}-{version}.tar.bz2	Xfce extension library
+base	tumbler	4.20.2	autotools	LGPL-2.0-or-later	glib,gdk-pixbuf,libpng,freetype	-	https://xfce.org/	https://archive.xfce.org/src/xfce/{name}/4.20/{name}-{version}.tar.bz2	Thumbnail service
 base	libwnck	43.3	meson	LGPL-2.0-or-later	gtk3,libx11,libxres	meson,ninja	https://gitlab.gnome.org/GNOME/libwnck	https://download.gnome.org/sources/libwnck/43/libwnck-{version}.tar.xz	Window navigator construction kit
 base	libxres	1.2.3	autotools	MIT	libx11,libxext	-	https://x.org/	https://x.org/pub/individual/lib/libXres-{version}.tar.xz	X Resource extension library
 base	libgudev	238	meson	LGPL-2.1-or-later	glib,libudev-zero	meson,ninja	https://gitlab.gnome.org/GNOME/libgudev	https://download.gnome.org/sources/libgudev/238/libgudev-{version}.tar.xz	GObject bindings for libudev
@@ -585,3 +585,29 @@ profile	arctic-sound	1.0.0	meta	BSD-2-Clause	pipewire,wireplumber,pipewire-pulse
 extra	libluv	1.51.0	cmake	Apache-2.0	glibc,libuv,luajit	cmake,ninja	https://github.com/luvit/luv	https://github.com/luvit/luv/releases/download/{version}-0/luv-{version}-0.tar.gz	libuv bindings for Lua, needed by neovim
 profile	lazyvim	1.0.0	meta	MIT	neovim,git	-	https://www.lazyvim.org/	-	Sets up the official LazyVim starter config, on request, per user
 main	signify	33	make	ISC	glibc	-	https://github.com/aperezdc/signify	https://github.com/aperezdc/signify/archive/refs/tags/v{version}.tar.gz	Cryptographically sign and verify files (Ed25519)
+extra	jemalloc	5.3.0	autotools	BSD-2-Clause	glibc	-	https://jemalloc.net/	https://github.com/jemalloc/jemalloc/releases/download/{version}/jemalloc-{version}.tar.bz2	General-purpose malloc implementation
+main	libclc	22.1.8	cmake	Apache-2.0-with-LLVM-exception	glibc	cmake,ninja,llvm,python	https://libclc.llvm.org/	-	OpenCL C library (bitcode) for LLVM
+base	libxpm	3.5.17	autotools	MIT	glibc,libx11,libxext,libxt	-	https://x.org/	https://x.org/pub/individual/lib/libXpm-{version}.tar.xz	X11 pixmap library
+base	startup-notification	0.12	autotools	LGPL-2.0-or-later	glibc,libx11,libxcb,xcb-util	-	https://www.freedesktop.org/wiki/Software/startup-notification/	https://www.freedesktop.org/software/startup-notification/releases/startup-notification-{version}.tar.gz	Startup notification protocol library
+base	icewm	3.7.4	cmake	LGPL-2.0-or-later	glibc,libx11,libxext,libxrandr,libxinerama,libxft,libxpm,fontconfig,freetype	-	https://ice-wm.org/	https://github.com/ice-wm/icewm/archive/refs/tags/{version}.tar.gz	A small, fast window manager
+base	openbox	3.6.1	autotools	GPL-2.0-or-later	glibc,libx11,libxml2,pango,glib,libxrandr,libxinerama,libxcursor,imlib2,startup-notification	-	http://openbox.org/	http://openbox.org/dist/openbox/openbox-{version}.tar.gz	A highly configurable stacking window manager
+base	xcb-util	0.4.1	autotools	MIT	glibc,libxcb	-	https://xcb.freedesktop.org/	https://xcb.freedesktop.org/dist/xcb-util-{version}.tar.xz	XCB utility functions
+base	menu-cache	1.1.0	autotools	LGPL-2.1-or-later	glibc,glib	-	https://lxde.org/	https://downloads.sourceforge.net/lxde/menu-cache-{version}.tar.xz	Menu cache library for LXDE
+base	libfm	1.3.2	autotools	GPL-2.0-or-later	glibc,glib,gtk3,menu-cache	-	https://lxde.org/	https://downloads.sourceforge.net/pcmanfm/libfm-{version}.tar.xz	File management library for LXDE
+base	pcmanfm	1.3.2	autotools	GPL-2.0-or-later	glibc,gtk3,libfm	-	https://lxde.org/	https://downloads.sourceforge.net/pcmanfm/pcmanfm-{version}.tar.xz	The LXDE file manager
+base	lxpanel	0.10.1	autotools	GPL-2.0-or-later	glibc,gtk3,libfm,menu-cache,libwnck	-	https://lxde.org/	https://downloads.sourceforge.net/lxde/lxpanel-{version}.tar.xz	The LXDE panel
+base	lxappearance	0.6.3	autotools	GPL-2.0-or-later	glibc,gtk3	-	https://lxde.org/	https://downloads.sourceforge.net/lxde/lxappearance-{version}.tar.xz	LXDE theme switcher
+base	lxterminal	0.4.0	autotools	GPL-2.0-or-later	glibc,gtk3,vte3	-	https://lxde.org/	https://downloads.sourceforge.net/lxde/lxterminal-{version}.tar.xz	The LXDE terminal emulator
+base	lxqt-build-tools	2.2.0	cmake	BSD-3-Clause	glibc,qt6-base	-	https://lxqt-project.org/	https://github.com/lxqt/lxqt-build-tools/releases/download/{version}/lxqt-build-tools-{version}.tar.xz	Build tools for LXQt
+base	libqtxdg	4.2.0	cmake	LGPL-2.1-or-later	glibc,qt6-base,qt6-svg	-	https://lxqt-project.org/	https://github.com/lxqt/libqtxdg/releases/download/{version}/libqtxdg-{version}.tar.xz	Qt implementation of the XDG specifications
+base	liblxqt	2.2.0	cmake	LGPL-2.1-or-later	glibc,qt6-base,qt6-svg,libqtxdg,polkit	-	https://lxqt-project.org/	https://github.com/lxqt/liblxqt/releases/download/{version}/liblxqt-{version}.tar.xz	Core LXQt library
+base	lxqt-session	2.2.0	cmake	LGPL-2.1-or-later	glibc,liblxqt,qt6-base,libxscrnsaver	-	https://lxqt-project.org/	https://github.com/lxqt/lxqt-session/releases/download/{version}/lxqt-session-{version}.tar.xz	The LXQt session manager
+base	lxqt-panel	2.2.0	cmake	LGPL-2.1-or-later	glibc,liblxqt,qt6-base,libxcomposite,libwnck	-	https://lxqt-project.org/	https://github.com/lxqt/lxqt-panel/releases/download/{version}/lxqt-panel-{version}.tar.xz	The LXQt panel
+base	pcmanfm-qt	2.2.0	cmake	GPL-2.0-or-later	glibc,liblxqt,qt6-base	-	https://lxqt-project.org/	https://github.com/lxqt/pcmanfm-qt/releases/download/{version}/pcmanfm-qt-{version}.tar.xz	The LXQt file manager
+base	qterminal	2.2.0	cmake	GPL-2.0-or-later	glibc,qt6-base,qt6-svg	-	https://lxqt-project.org/	https://github.com/lxqt/qterminal/releases/download/{version}/qterminal-{version}.tar.xz	A Qt terminal emulator
+base	libxfce4windowing	4.20.7	autotools	LGPL-2.1-or-later	glibc,gtk3,libx11,libwnck,wayland	-	https://xfce.org/	https://archive.xfce.org/src/xfce/libxfce4windowing/4.20/libxfce4windowing-{version}.tar.bz2	Windowing abstraction for Xfce
+main	spirv-llvm-translator	22.1.5	cmake	NCSA	glibc,llvm,spirv-tools	cmake,ninja,llvm	https://github.com/KhronosGroup/SPIRV-LLVM-Translator	https://github.com/KhronosGroup/SPIRV-LLVM-Translator/archive/refs/tags/v{version}.tar.gz	LLVM IR to SPIR-V translator
+main	spirv-headers	1.4.357.0	cmake	MIT	glibc	cmake,ninja	https://github.com/KhronosGroup/SPIRV-Headers	https://github.com/KhronosGroup/SPIRV-Headers/archive/refs/tags/vulkan-sdk-{version}.tar.gz	Machine-readable SPIR-V headers
+main	initialization	0.8.1	make	0BSD	glibc	-	https://github.com/apiwo/initialization	-	The Arctic init system and process supervisor
+extra	vscodium	1.126.04524	make	MIT	glibc,gtk3,nss,libx11,libxcb,libxkbcommon,alsa-lib,libdrm,mesa	-	https://vscodium.com/	https://github.com/VSCodium/vscodium/releases/download/{version}/VSCodium-linux-x64-{version}.tar.gz	VS Code without telemetry or branding
+main	iw	6.17	make	ISC	glibc,libnl	pkgconf	https://wireless.wiki.kernel.org/	https://www.kernel.org/pub/software/network/iw/iw-{version}.tar.xz	Configure and scan wireless devices through nl80211

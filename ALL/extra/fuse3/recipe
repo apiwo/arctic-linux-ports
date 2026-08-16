@@ -10,7 +10,7 @@ url="https://github.com/libfuse/libfuse"
 license="LGPL-2.1-only GPL-2.0-only"
 depend="glibc"
 makedepend="meson ninja"
-source="https://github.com/libfuse/libfuse/releases/download/fuse-3.18.1/fuse-3.18.1.tar.xz"
+source="https://github.com/libfuse/libfuse/releases/download/fuse-3.18.1/fuse-3.18.1.tar.gz"
 sha256="SKIP"
 
 build() {

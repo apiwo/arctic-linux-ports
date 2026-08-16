@@ -4,7 +4,7 @@
 # drop a `recipe.local` beside it and it will be preserved.
 name=vte3
 version=0.82.0
-release=1
+release=2
 desc="Terminal widget library"
 url="https://gitlab.gnome.org/GNOME/vte"
 license="LGPL-3.0-only"
@@ -22,7 +22,9 @@ build() {
 		--localstatedir=/var \
 		--buildtype=release \
 		--wrap-mode=nodownload \
-		-Db_lto=true
+		-Db_lto=false \
+		-D_systemd=false \
+		-Dvapi=false
 	ninja -C build -j"$JOBS"
 }
 

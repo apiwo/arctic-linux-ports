@@ -1,0 +1,31 @@
+# libclc - the OpenCL C library, built from the LLVM source tree.
+#
+# Not optional and not about OpenCL support as such: mesa's Intel Vulkan
+# drivers compile parts of themselves from OpenCL C, so a mesa built with
+# intel or intel_hasvk stops at configure with "Dependency libclc not found".
+# It is a separate package because it is a set of bitcode libraries and
+# headers, not part of the compiler, and rebuilding all of LLVM to get it
+# would be absurd.
+name=libclc
+version=22.1.8
+release=1
+desc="OpenCL C library (bitcode) for LLVM"
+url="https://libclc.llvm.org/"
+license="Apache-2.0-with-LLVM-exception"
+depend="glibc"
+makedepend="cmake ninja llvm python"
+source="llvm-project-$version.src.tar.xz::https://github.com/llvm/llvm-project/releases/download/llvmorg-$version/llvm-project-$version.src.tar.xz"
+sha256="SKIP"
+
+build() {
+	cd "llvm-project-$version.src"
+	cmake -S libclc -B build -G Ninja \
+		-DCMAKE_BUILD_TYPE=Release \
+		-DCMAKE_INSTALL_PREFIX=/usr
+	ninja -C build -j"$JOBS"
+}
+
+package() {
+	cd "llvm-project-$version.src"
+	DESTDIR="$pkgdir" ninja -C build install
+}

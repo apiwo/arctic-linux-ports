@@ -3,18 +3,18 @@
 # unless the package needs something the template cannot express - in which case
 # drop a `recipe.local` beside it and it will be preserved.
 name=xfce4-appfinder
-version=4.22.0
+version=4.20.0
 release=1
 desc="Xfce application finder"
 url="https://xfce.org/"
 license="GPL-2.0-or-later"
 depend="gtk3 libxfce4ui garcon"
 makedepend=""
-source="https://archive.xfce.org/src/xfce/xfce4-appfinder/4.22/xfce4-appfinder-4.22.0.tar.bz2"
+source="https://archive.xfce.org/src/xfce/xfce4-appfinder/4.20/xfce4-appfinder-4.20.0.tar.bz2"
 sha256="SKIP"
 
 build() {
-	cd "xfce4-appfinder-4.22.0"
+	cd "xfce4-appfinder-4.20.0"
 	# Not every configure script accepts the same options - sqlite rejects
 	# --disable-nls outright, for instance - so only pass the ones this one
 	# actually advertises. Guessing wrong fails the whole build.
@@ -28,6 +28,6 @@ build() {
 }
 
 package() {
-	cd "xfce4-appfinder-4.22.0"
+	cd "xfce4-appfinder-4.20.0"
 	make DESTDIR="$pkgdir" install
 }

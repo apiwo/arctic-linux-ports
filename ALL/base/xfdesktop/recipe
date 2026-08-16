@@ -3,18 +3,18 @@
 # unless the package needs something the template cannot express - in which case
 # drop a `recipe.local` beside it and it will be preserved.
 name=xfdesktop
-version=4.22.0
+version=4.20.2
 release=1
 desc="The Xfce desktop manager"
 url="https://xfce.org/"
 license="GPL-2.0-or-later"
 depend="gtk3 libxfce4ui thunar"
 makedepend=""
-source="https://archive.xfce.org/src/xfce/xfdesktop/4.22/xfdesktop-4.22.0.tar.bz2"
+source="https://archive.xfce.org/src/xfce/xfdesktop/4.20/xfdesktop-4.20.2.tar.bz2"
 sha256="SKIP"
 
 build() {
-	cd "xfdesktop-4.22.0"
+	cd "xfdesktop-4.20.2"
 	# Not every configure script accepts the same options - sqlite rejects
 	# --disable-nls outright, for instance - so only pass the ones this one
 	# actually advertises. Guessing wrong fails the whole build.
@@ -28,6 +28,6 @@ build() {
 }
 
 package() {
-	cd "xfdesktop-4.22.0"
+	cd "xfdesktop-4.20.2"
 	make DESTDIR="$pkgdir" install
 }

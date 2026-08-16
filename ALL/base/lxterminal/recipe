@@ -1,0 +1,33 @@
+# lxterminal - The LXDE terminal emulator
+# Generated from manifest.tsv by gen-ports.py. Edit the manifest, not this file,
+# unless the package needs something the template cannot express - in which case
+# drop a `recipe.local` beside it and it will be preserved.
+name=lxterminal
+version=0.4.0
+release=1
+desc="The LXDE terminal emulator"
+url="https://lxde.org/"
+license="GPL-2.0-or-later"
+depend="glibc gtk3 vte3"
+makedepend=""
+source="https://downloads.sourceforge.net/lxde/lxterminal-0.4.0.tar.xz"
+sha256="SKIP"
+
+build() {
+	cd "lxterminal-0.4.0"
+	# Not every configure script accepts the same options - sqlite rejects
+	# --disable-nls outright, for instance - so only pass the ones this one
+	# actually advertises. Guessing wrong fails the whole build.
+	_opts="--prefix=/usr --sysconfdir=/etc --localstatedir=/var --libdir=/usr/lib"
+	_help=$(./configure --help 2>/dev/null)
+	case "$_help" in *--disable-static*)  _opts="$_opts --disable-static" ;; esac
+	case "$_help" in *--disable-nls*)     _opts="$_opts --disable-nls" ;; esac
+	# shellcheck disable=SC2086
+	./configure $_opts
+	make -j"$JOBS"
+}
+
+package() {
+	cd "lxterminal-0.4.0"
+	make DESTDIR="$pkgdir" install
+}

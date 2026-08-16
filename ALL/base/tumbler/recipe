@@ -3,18 +3,18 @@
 # unless the package needs something the template cannot express - in which case
 # drop a `recipe.local` beside it and it will be preserved.
 name=tumbler
-version=4.22.0
+version=4.20.2
 release=1
 desc="Thumbnail service"
 url="https://xfce.org/"
 license="LGPL-2.0-or-later"
 depend="glib gdk-pixbuf libpng freetype"
 makedepend=""
-source="https://archive.xfce.org/src/xfce/tumbler/4.22/tumbler-4.22.0.tar.bz2"
+source="https://archive.xfce.org/src/xfce/tumbler/4.20/tumbler-4.20.2.tar.bz2"
 sha256="SKIP"
 
 build() {
-	cd "tumbler-4.22.0"
+	cd "tumbler-4.20.2"
 	# Not every configure script accepts the same options - sqlite rejects
 	# --disable-nls outright, for instance - so only pass the ones this one
 	# actually advertises. Guessing wrong fails the whole build.
@@ -28,6 +28,6 @@ build() {
 }
 
 package() {
-	cd "tumbler-4.22.0"
+	cd "tumbler-4.20.2"
 	make DESTDIR="$pkgdir" install
 }

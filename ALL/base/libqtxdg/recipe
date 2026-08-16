@@ -1,0 +1,27 @@
+# libqtxdg - Qt implementation of the XDG specifications
+# Generated from manifest.tsv by gen-ports.py. Edit the manifest, not this file,
+# unless the package needs something the template cannot express - in which case
+# drop a `recipe.local` beside it and it will be preserved.
+name=libqtxdg
+version=4.2.0
+release=1
+desc="Qt implementation of the XDG specifications"
+url="https://lxqt-project.org/"
+license="LGPL-2.1-or-later"
+depend="glibc qt6-base qt6-svg"
+makedepend=""
+source="https://github.com/lxqt/libqtxdg/releases/download/4.2.0/libqtxdg-4.2.0.tar.xz"
+sha256="SKIP"
+
+build() {
+	cmake -S "libqtxdg-4.2.0" -B build -G Ninja \
+		-DCMAKE_INSTALL_PREFIX=/usr \
+		-DCMAKE_INSTALL_LIBDIR=lib \
+		-DCMAKE_BUILD_TYPE=Release \
+		-DBUILD_SHARED_LIBS=ON
+	ninja -C build -j"$JOBS"
+}
+
+package() {
+	DESTDIR="$pkgdir" ninja -C build install
+}

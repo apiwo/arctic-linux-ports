@@ -5,7 +5,7 @@ release=1
 desc="Open source OpenGL and Vulkan implementation"
 url="https://mesa3d.org/"
 license="MIT"
-depend="glibc libdrm wayland libx11 zlib zstd expat llvm"
+depend="glibc libdrm wayland libx11 zlib zstd expat llvm libclc spirv-llvm-translator"
 makedepend="meson ninja clang lld python"
 provides="opengl vulkan"
 source="https://archive.mesa3d.org/mesa-$version.tar.xz"
@@ -15,9 +15,20 @@ build() {
 	cd "mesa-$version"
 	# One build covers AMD, Intel and the software fallback. Arctic enables
 	# every free driver so a single package works on any machine.
+	#
+	# Two drivers are deliberately absent. nouveau's Vulkan driver (NVK) is
+	# written in Rust and its build wants bindgen, and Arctic has no Rust
+	# toolchain - nouveau's gallium driver is C and stays. VDPAU is gone from
+	# mesa 26 entirely, and meson stops on the unknown option rather than
+	# ignoring it.
+	#
+	# Every option is on one continued command: a comment between two
+	# backslash-continued lines is not a comment at all, it swallows the rest
+	# of the command - which is how -Dvulkan-drivers went missing, left
+	# vulkan-drivers at "auto", and put NVK back in.
 	meson setup build --prefix=/usr --buildtype=release \
-		-Dgallium-drivers=radeonsi,r300,r600,nouveau,llvmpipe,softpipe,zink,virgl,svga \
-		-Dvulkan-drivers=amd,intel,intel_hasvk,swrast,nouveau \
+		-Dgallium-drivers=iris,crocus,radeonsi,r300,r600,nouveau,llvmpipe,softpipe,zink,virgl,svga \
+		-Dvulkan-drivers=amd,intel,intel_hasvk,swrast \
 		-Dplatforms=wayland,x11 \
 		-Dglx=dri \
 		-Degl=enabled \
@@ -25,8 +36,7 @@ build() {
 		-Dllvm=enabled \
 		-Dshared-llvm=enabled \
 		-Dvideo-codecs=all \
-		-Dgallium-va=enabled \
-		-Dgallium-vdpau=enabled
+		-Dgallium-va=enabled
 	ninja -C build -j"$JOBS"
 }
 

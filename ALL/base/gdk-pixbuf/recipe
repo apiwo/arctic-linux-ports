@@ -4,7 +4,7 @@
 # drop a `recipe.local` beside it and it will be preserved.
 name=gdk-pixbuf
 version=2.44.4
-release=1
+release=2
 desc="Image loading library"
 url="https://gitlab.gnome.org/GNOME/gdk-pixbuf"
 license="LGPL-2.1-or-later"
@@ -15,7 +15,7 @@ sha256="SKIP"
 
 build() {
 	cd "gdk-pixbuf-2.44.4"
-	meson setup build \
+	meson setup build -Dglycin=disabled \
 		--prefix=/usr \
 		--libdir=/usr/lib \
 		--sysconfdir=/etc \

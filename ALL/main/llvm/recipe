@@ -3,7 +3,7 @@
 # machines as a stage-0 tool for glibc, and is never packaged.
 name=llvm
 version=22.1.8
-release=2
+release=3
 desc="The LLVM compiler infrastructure: clang, lld, libc++, lldb"
 url="https://llvm.org/"
 license="Apache-2.0-with-LLVM-exception"
@@ -61,4 +61,11 @@ package() {
 	ln -sf clang "$pkgdir/usr/bin/cc"
 	ln -sf clang++ "$pkgdir/usr/bin/c++"
 	ln -sf ld.lld "$pkgdir/usr/bin/ld"
+
+	# LLVM_INSTALL_UTILS puts llvm-lit's helpers in /usr/bin, and two of them
+	# are named after ordinary commands: "count" and "not". toybox owns both,
+	# so installing llvm - which mesa depends on - stopped the transaction on
+	# a file conflict and the whole graphics stack went with it. They are test
+	# harness, useful only when running LLVM's own suite.
+	rm -f "$pkgdir/usr/bin/count" "$pkgdir/usr/bin/not"
 }

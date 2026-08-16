@@ -4,7 +4,11 @@
 # drop a `recipe.local` beside it and it will be preserved.
 name=e2fsprogs
 version=1.47.4
-release=2
+release=3
+# chattr, lsattr and logsave are e2fsprogs' own - toybox ships fallback
+# applets under the same names, sysvinit a second logsave, and util-linux a
+# second fsck man page. The dedicated implementation is the one wanted.
+replaces="toybox sysvinit util-linux-libs"
 desc="ext2/3/4 filesystem tools"
 url="https://e2fsprogs.sourceforge.net/"
 license="GPL-2.0-only LGPL-2.0-only"

@@ -1,0 +1,2 @@
+# The HPACK development tools are removed in package(); the template has no
+# field for that, and they are what made nghttp2 depend on jemalloc.

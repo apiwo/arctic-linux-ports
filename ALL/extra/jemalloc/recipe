@@ -4,7 +4,7 @@
 # drop a `recipe.local` beside it and it will be preserved.
 name=jemalloc
 version=5.3.0
-release=1
+release=2
 desc="General-purpose malloc implementation"
 url="https://jemalloc.net/"
 license="BSD-2-Clause"
@@ -22,6 +22,12 @@ build() {
 	_help=$(./configure --help 2>/dev/null)
 	case "$_help" in *--disable-static*)  _opts="$_opts --disable-static" ;; esac
 	case "$_help" in *--disable-nls*)     _opts="$_opts --disable-nls" ;; esac
+	# No C++ integration. jemalloc is a malloc; the C++ part is an optional
+	# operator new/delete wrapper, and building it makes libjemalloc.so.2
+	# link libc++ - which on this distribution means the whole LLVM package
+	# gets dragged onto anything that needs a malloc, 350 MiB of compiler to
+	# satisfy one runtime library.
+	case "$_help" in *--disable-cxx*)     _opts="$_opts --disable-cxx" ;; esac
 	# shellcheck disable=SC2086
 	./configure $_opts
 	make -j"$JOBS"

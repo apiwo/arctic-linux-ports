@@ -611,3 +611,10 @@ main	spirv-headers	1.4.357.0	cmake	MIT	glibc	cmake,ninja	https://github.com/Khro
 main	initialization	0.8.1	make	0BSD	glibc	-	https://github.com/apiwo/initialization	-	The Arctic init system and process supervisor
 extra	vscodium	1.126.04524	make	MIT	glibc,gtk3,nss,libx11,libxcb,libxkbcommon,alsa-lib,libdrm,mesa	-	https://vscodium.com/	https://github.com/VSCodium/vscodium/releases/download/{version}/VSCodium-linux-x64-{version}.tar.gz	VS Code without telemetry or branding
 main	iw	6.17	make	ISC	glibc,libnl	pkgconf	https://wireless.wiki.kernel.org/	https://www.kernel.org/pub/software/network/iw/iw-{version}.tar.xz	Configure and scan wireless devices through nl80211
+
+extra	ttf-maple-mono	7.9	make	OFL-1.1	-	-	https://github.com/subframe7536/maple-font	https://github.com/subframe7536/maple-font/releases/download/v7.9/MapleMono-NF.zip	Maple Mono NF, a rounded monospace with Nerd Font glyphs
+extra	ttf-jetbrains-mono-nerd	3.4.0	make	OFL-1.1	-	-	https://www.nerdfonts.com/	https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/JetBrainsMono.zip	JetBrains Mono patched with Nerd Font glyphs
+extra	ttf-firacode-nerd	3.4.0	make	OFL-1.1	-	-	https://www.nerdfonts.com/	https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/FiraCode.zip	Fira Code patched with Nerd Font glyphs
+extra	ttf-hack-nerd	3.4.0	make	OFL-1.1	-	-	https://www.nerdfonts.com/	https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/Hack.zip	Hack patched with Nerd Font glyphs
+base	lightdm-gtk-greeter	2.0.9	autotools	GPL-3.0-or-later	glibc,lightdm,gtk3	-	https://github.com/Xubuntu/lightdm-gtk-greeter	https://github.com/Xubuntu/lightdm-gtk-greeter/releases/download/lightdm-gtk-greeter-{version}/lightdm-gtk-greeter-{version}.tar.gz	The GTK greeter for LightDM
+base	xfce4-dev-tools	4.20.0	autotools	GPL-2.0-or-later	glibc,glib	-	https://xfce.org/	https://archive.xfce.org/src/xfce/xfce4-dev-tools/4.20/xfce4-dev-tools-{version}.tar.bz2	Build tools for Xfce and its greeters

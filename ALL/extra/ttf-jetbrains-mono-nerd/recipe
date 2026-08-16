@@ -1,0 +1,27 @@
+# ttf-jetbrains-mono-nerd - JetBrains Mono patched with Nerd Font glyphs
+#
+# A font release, not a build: the archive is faces and nothing to compile.
+# Everything lands in /usr/share/fonts/TTF, which is what fontconfig scans.
+name=ttf-jetbrains-mono-nerd
+version=3.4.0
+release=1
+desc="JetBrains Mono patched with Nerd Font glyphs"
+url="https://www.nerdfonts.com/"
+license="OFL-1.1"
+depend=""
+makedepend=""
+source="https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/JetBrainsMono.zip"
+sha256="SKIP"
+
+build() {
+	:
+}
+
+package() {
+	install -d "$pkgdir/usr/share/fonts/TTF"
+	# Some of these archives have a directory inside and some do not, so take
+	# every face wherever it landed rather than assuming a shape.
+	find . -type f \( -name '*.ttf' -o -name '*.otf' \) | while read -r f; do
+		install -m644 "$f" "$pkgdir/usr/share/fonts/TTF/"
+	done
+}

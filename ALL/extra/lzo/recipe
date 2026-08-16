@@ -1,10 +1,12 @@
 # lzo - Real-time compression library
-# Generated from manifest.tsv by gen-ports.py. Edit the manifest, not this file,
-# unless the package needs something the template cannot express - in which case
-# drop a `recipe.local` beside it and it will be preserved.
+#
+# --enable-shared, because lzo's configure builds a static library only by
+# default. Nothing linked against liblzo2 could then run from this package:
+# mkfs.btrfs died with "liblzo2.so.2: cannot open shared object file" and took
+# the whole install with it, since it is what formats the root filesystem.
 name=lzo
 version=2.10
-release=1
+release=2
 desc="Real-time compression library"
 url="https://www.oberhumer.com/opensource/lzo/"
 license="GPL-2.0-or-later"
@@ -19,6 +21,7 @@ build() {
 	# --disable-nls outright, for instance - so only pass the ones this one
 	# actually advertises. Guessing wrong fails the whole build.
 	_opts="--prefix=/usr --sysconfdir=/etc --localstatedir=/var --libdir=/usr/lib"
+	_opts="$_opts --enable-shared"
 	_help=$(./configure --help 2>/dev/null)
 	case "$_help" in *--disable-static*)  _opts="$_opts --disable-static" ;; esac
 	case "$_help" in *--disable-nls*)     _opts="$_opts --disable-nls" ;; esac

@@ -1,10 +1,14 @@
 # curl - Transfer data over any protocol
-# Generated from manifest.tsv by gen-ports.py. Edit the manifest, not this file,
-# unless the package needs something the template cannot express - in which case
-# drop a `recipe.local` beside it and it will be preserved.
+#
+# Built without libidn2 and libpsl. Both are GNU or GNU-linked (libpsl pulls
+# libidn2, which pulls libunistring), and Arctic keeps glibc as its only GNU
+# component. They are also what made curl unable to start on the live image
+# twice - internationalised hostnames and public-suffix cookie rules are not
+# worth three extra libraries on the one binary every repository is fetched
+# with.
 name=curl
 version=8.19.0
-release=1
+release=2
 desc="Transfer data over any protocol"
 url="https://curl.se/"
 license="curl"
@@ -19,6 +23,7 @@ build() {
 	# --disable-nls outright, for instance - so only pass the ones this one
 	# actually advertises. Guessing wrong fails the whole build.
 	_opts="--prefix=/usr --sysconfdir=/etc --localstatedir=/var --libdir=/usr/lib --with-openssl"
+	_opts="$_opts --without-libidn2 --without-libpsl"
 	_help=$(./configure --help 2>/dev/null)
 	case "$_help" in *--disable-static*)  _opts="$_opts --disable-static" ;; esac
 	case "$_help" in *--disable-nls*)     _opts="$_opts --disable-nls" ;; esac

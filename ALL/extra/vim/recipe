@@ -4,7 +4,11 @@
 # drop a `recipe.local` beside it and it will be preserved.
 name=vim
 version=9.2.0100
-release=1
+release=2
+# toybox ships xxd as a fallback applet under the same name.
+# This package carries the real implementation and is meant to take
+# that path over.
+replaces="toybox"
 desc="Vi improved"
 url="https://www.vim.org/"
 license="Vim"

@@ -6,7 +6,11 @@
 # build a shared library by default, which everything linking -lbz2 expects.
 name=bzip2
 version=1.0.8
-release=1
+release=2
+# toybox ships bunzip2 and bzcat as fallback applets under the same
+# names. This package carries the real implementation and is meant to take
+# those paths over.
+replaces="toybox"
 desc="Block-sorting file compressor"
 url="https://sourceware.org/bzip2/"
 license="bzip2-1.0.6"

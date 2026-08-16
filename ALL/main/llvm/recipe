@@ -10,6 +10,15 @@ license="Apache-2.0-with-LLVM-exception"
 depend="glibc zlib zstd"
 makedepend="cmake ninja python"
 provides="clang lld libcxx compiler"
+# lldb and polly are left out deliberately. lldb wants swig and libedit and
+# is the part of an LLVM build most likely to fail on a machine that does not
+# have them; polly is an optimiser most packages never ask for. Neither is
+# needed to compile Arctic, and a toolchain that builds is worth more than a
+# toolchain that would have had a debugger in it.
+#
+# Linking is capped at four jobs regardless of how many cores do the
+# compiling: LLVM's link steps are the memory-hungry ones and running one per
+# core is how an LLVM build turns into an out-of-memory kill several hours in.
 source="llvm-project-$version.src.tar.xz::https://github.com/llvm/llvm-project/releases/download/llvmorg-$version/llvm-project-$version.src.tar.xz"
 sha256="SKIP"
 options="!strip"
@@ -19,7 +28,7 @@ build() {
 	cmake -S llvm -B build -G Ninja \
 		-DCMAKE_BUILD_TYPE=Release \
 		-DCMAKE_INSTALL_PREFIX=/usr \
-		-DLLVM_ENABLE_PROJECTS="clang;clang-tools-extra;lld;lldb;polly" \
+		-DLLVM_ENABLE_PROJECTS="clang;clang-tools-extra;lld" \
 		-DLLVM_ENABLE_RUNTIMES="libcxx;libcxxabi;libunwind;compiler-rt" \
 		-DLLVM_TARGETS_TO_BUILD="X86;AArch64;RISCV;WebAssembly" \
 		-DLLVM_ENABLE_LLD=ON \
@@ -32,7 +41,11 @@ build() {
 		-DCLANG_DEFAULT_LINKER=lld \
 		-DCLANG_DEFAULT_UNWINDLIB=libunwind \
 		-DLIBCXX_USE_COMPILER_RT=ON \
-		-DLIBCXXABI_USE_LLVM_UNWINDER=ON
+		-DLIBCXXABI_USE_LLVM_UNWINDER=ON \
+		-DLLVM_INCLUDE_TESTS=OFF \
+		-DLLVM_INCLUDE_BENCHMARKS=OFF \
+		-DLLVM_INCLUDE_EXAMPLES=OFF \
+		-DLLVM_PARALLEL_LINK_JOBS=4
 	ninja -C build -j"$JOBS"
 }
 

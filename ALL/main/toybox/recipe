@@ -3,7 +3,7 @@
 # sed, grep, tar and friends all come from here under the 0BSD licence.
 name=toybox
 version=0.8.14
-release=1
+release=3
 desc="The classic Unix commands, 0BSD licensed"
 url="https://landley.net/toybox/"
 license="0BSD"
@@ -15,15 +15,51 @@ sha256="SKIP"
 build() {
 	cd "toybox-$version"
 	make defconfig >/dev/null
+
+	# defconfig leaves out everything in toybox's "pending" set, and several
+	# commands a POSIX system is expected to have live there. Without them
+	# Arctic shipped with no tr, no stty, no expr and no diff at all: alpm
+	# and arcticfetch call tr and printed "tr: not found" over their own
+	# output, and the installer's chroot calls stty to fix the erase
+	# character, which silently did nothing because the command was not
+	# there. They are pending upstream because they are not finished to
+	# toybox's standard, not because they do not work.
+	for _c in TR STTY EXPR DIFF MORE; do
+		sed -i "s/^# CONFIG_$_c is not set\$/CONFIG_$_c=y/" .config
+	done
+	yes '' | make oldconfig >/dev/null 2>&1 || :
+
 	make -j"$JOBS" CFLAGS="$CFLAGS -Wno-error" toybox
 }
 
 package() {
 	cd "toybox-$version"
 	install -Dm755 toybox "$pkgdir/usr/bin/toybox"
-	# Link every command toybox provides, except the few busybox owns.
+
+	# Commands a dedicated package in the base system owns. toybox has its
+	# own implementation of every one of them, and Arctic wants the other:
+	# busybox is what mounts filesystems, loads modules and brings up
+	# interfaces at boot, glibc's getconf and iconv are the real ones,
+	# netbsd-curses owns the terminal commands and attr the xattr tools.
+	#
+	# Linking them here does not quietly lose to the other implementation,
+	# it stops the install: alpm refuses a package whose files another
+	# package already owns. This list was one command short of busybox's
+	# and the base system would not install past /usr/bin/blkid.
+	#
+	# The busybox half of the list is the applet set in
+	# ports/main/busybox/recipe and the two have to agree.
+	# build/check-conflicts.sh is what proves they still do.
+	owned="init sh ash getty mdev login su passwd chpasswd adduser addgroup \
+deluser delgroup mount umount swapon swapoff mkswap fsck blkid findfs \
+mountpoint losetup switch_root pivot_root udhcpc ip ifconfig route ping \
+wget modprobe insmod rmmod lsmod depmod sysctl hwclock killall5 \
+start-stop-daemon syslogd klogd crond reboot halt poweroff setfont \
+loadkmap vi less getconf iconv clear reset setfattr getfattr"
+
 	for a in $(./toybox); do
-		case "$a" in toybox|init|sh|ash|getty|mdev|login|su|passwd) continue ;; esac
+		[ "$a" = toybox ] && continue
+		case " $owned " in *" $a "*) continue ;; esac
 		ln -sf toybox "$pkgdir/usr/bin/$a"
 	done
 	install -Dm644 README "$pkgdir/usr/share/doc/toybox/README"

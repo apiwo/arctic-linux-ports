@@ -1,7 +1,7 @@
 # libressl - OpenBSD TLS, Arctic's default
 name=libressl
 version=4.2.0
-release=2
+release=3
 desc="OpenBSD TLS, Arctic's default"
 url="https://www.libressl.org/"
 license="ISC Apache-2.0"
@@ -33,4 +33,14 @@ package() {
 	# /etc/ssl/cert.pem is owned by libressl" was enough to stop any
 	# transaction that included ca-certificates, which is most of them.
 	rm -f "$pkgdir/etc/ssl/cert.pem"
+	# openssl.cnf has the same problem for the same reason: LibreSSL and
+	# OpenSSL are alternative implementations of one interface and both ship
+	# a file at that path, so installing the second one onto a system that
+	# already had the first stopped the transaction. They coexist happily as
+	# libraries - the sonames differ - and it is only the configuration file
+	# they cannot both own. LibreSSL's keeps its own name; nothing reads it
+	# by the other one that is not equally happy with OpenSSL's.
+	if [ -f "$pkgdir/etc/ssl/openssl.cnf" ]; then
+		mv -f "$pkgdir/etc/ssl/openssl.cnf" "$pkgdir/etc/ssl/libressl.cnf"
+	fi
 }

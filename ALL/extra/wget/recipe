@@ -4,7 +4,10 @@
 # drop a `recipe.local` beside it and it will be preserved.
 name=wget
 version=1.25.0
-release=1
+release=2
+# busybox ships a cut-down wget under the same name. This package carries the
+# real implementation and is meant to take that path over.
+replaces="busybox"
 desc="Network downloader"
 url="https://www.gnu.org/software/wget/"
 license="GPL-3.0-or-later"

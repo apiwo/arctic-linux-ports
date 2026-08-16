@@ -1,7 +1,7 @@
 # sysvinit - The traditional System V init
 name=sysvinit
 version=3.14
-release=1
+release=2
 desc="The traditional System V init"
 url="https://github.com/slicer69/sysvinit"
 license="GPL-2.0-or-later"
@@ -34,4 +34,17 @@ package() {
 		rmdir "$pkgdir/sbin" 2>/dev/null || :
 	fi
 	:
+	# util-linux is where these live on Linux, and it is installed on every Arctic
+	# system. Shipping a second copy stopped any install that chose sysvinit.
+	rm -rf "$pkgdir/usr/bin/last"
+	rm -rf "$pkgdir/usr/bin/lastb"
+	rm -rf "$pkgdir/usr/bin/mesg"
+	rm -rf "$pkgdir/usr/bin/wall"
+	rm -rf "$pkgdir/usr/bin/utmpdump"
+	rm -rf "$pkgdir/usr/share/man/man1/last.1"
+	rm -rf "$pkgdir/usr/share/man/man1/lastb.1"
+	rm -rf "$pkgdir/usr/share/man/man1/mesg.1"
+	rm -rf "$pkgdir/usr/share/man/man1/wall.1"
+	rm -rf "$pkgdir/usr/share/man/man1/utmpdump.1"
+	rm -rf "$pkgdir/usr/share/man/man8/sulogin.8"
 }

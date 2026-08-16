@@ -4,7 +4,7 @@
 # drop a `recipe.local` beside it and it will be preserved.
 name=btop
 version=1.4.7
-release=1
+release=2
 desc="Resource monitor with a nicer view"
 url="https://github.com/aristocratos/btop"
 license="Apache-2.0"
@@ -24,4 +24,8 @@ build() {
 
 package() {
 	DESTDIR="$pkgdir" ninja -C build install
+	# Vendored googletest headers - see ninja, which bundles the same ones.
+	rm -rf "$pkgdir/usr/include/gtest"
+	rm -rf "$pkgdir/usr/include/gmock"
+	rm -rf "$pkgdir/usr/lib/cmake/GTest"
 }

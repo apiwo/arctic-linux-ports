@@ -4,7 +4,7 @@
 # drop a `recipe.local` beside it and it will be preserved.
 name=libev
 version=4.33
-release=1
+release=2
 desc="High performance event loop"
 url="http://software.schmorp.de/pkg/libev.html"
 license="BSD-2-Clause"
@@ -30,4 +30,7 @@ build() {
 package() {
 	cd "libev-4.33"
 	make DESTDIR="$pkgdir" install
+	# libev installs a libevent-compatibility header under libevent's own name,
+	# which stops any install that wants both. Nothing in Arctic uses the shim.
+	rm -rf "$pkgdir/usr/include/event.h"
 }

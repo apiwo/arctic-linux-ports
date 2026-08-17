@@ -1,0 +1,44 @@
+# pam - Pluggable authentication modules, library and pam_unix only
+# Generated from manifest.tsv by gen-ports.py. Edit the manifest, not this file,
+# unless the package needs something the template cannot express - in which case
+# drop a `recipe.local` beside it and it will be preserved.
+name=pam
+version=1.7.2
+release=1
+desc="Pluggable authentication modules, library and pam_unix only"
+url="https://github.com/linux-pam/linux-pam"
+license="BSD-3-Clause"
+depend="glibc libxcrypt"
+makedepend="meson ninja"
+source="https://github.com/linux-pam/linux-pam/releases/download/v1.7.2/Linux-PAM-1.7.2.tar.xz"
+sha256="SKIP"
+
+build() {
+	cd "Linux-PAM-1.7.2"
+	# docs needs docbook/xsltproc, which are not packaged; selinux, audit,
+	# nis, logind and elogind all need libraries Arctic does not build.
+	# openssl is disabled upstream by default - pam_timestamp has no reason
+	# to link a second TLS library when it never needs one.
+	meson setup build \
+		--prefix=/usr \
+		--libdir=/usr/lib \
+		--sysconfdir=/etc \
+		--localstatedir=/var \
+		--buildtype=release \
+		--wrap-mode=nodownload \
+		-Ddocs=disabled \
+		-Dexamples=false \
+		-Dselinux=disabled \
+		-Daudit=disabled \
+		-Dnis=disabled \
+		-Dlogind=disabled \
+		-Delogind=disabled \
+		-Dpam_userdb=disabled \
+		-Db_lto=true
+	ninja -C build -j"$JOBS"
+}
+
+package() {
+	cd "Linux-PAM-1.7.2"
+	DESTDIR="$pkgdir" ninja -C build install
+}

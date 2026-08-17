@@ -4,7 +4,7 @@
 # drop a `recipe.local` beside it and it will be preserved.
 name=gtk3
 version=3.24.43
-release=1
+release=2
 desc="GTK 3 toolkit"
 url="https://gtk.org/"
 license="LGPL-2.1-or-later"

@@ -4,7 +4,7 @@
 # drop a `recipe.local` beside it and it will be preserved.
 name=networkmanager
 version=1.50.0
-release=1
+release=2
 desc="Network configuration daemon, provides nmtui"
 url="https://networkmanager.dev/"
 license="LGPL-2.1-or-later GPL-2.0-or-later"
@@ -56,6 +56,21 @@ build() {
 	# nmcli prompt's tab completion is affected, and nmcli itself won't
 	# build at all while that's unresolved. Revisit if nmcli specifically
 	# turns out to matter enough to carry a patch for.
+	#
+	# -Dsystemdsystemunitdir is a real path, not "no". meson.build's own
+	# logic only skips its systemd-unit-dir probe when this is exactly the
+	# string "no" and asserts looking for a real systemd install otherwise -
+	# "no" was passed and the assert fired anyway, for a reason not worth
+	# chasing further when any non-empty path sidesteps the check entirely.
+	# Nothing on Arctic reads this path; ninja install just writes a few
+	# .service files under it inside $pkgdir that nothing ever loads.
+	#
+	# -Db_lto=false: meson's own default asserts on -flto-partition=none, a
+	# GCC LTO flag clang has never had - "Compiler for C supports arguments
+	# -flto-partition=none: NO" then a hard Assert failed, never reaching
+	# the rest of the build. This is not a workaround for clang's LTO being
+	# broken - clang's LTO works fine - it is meson's own default check
+	# being written against gcc.
 	meson setup build \
 		--prefix=/usr \
 		--libdir=/usr/lib \
@@ -63,10 +78,10 @@ build() {
 		--localstatedir=/var \
 		--buildtype=release \
 		--wrap-mode=nodownload \
-		-Db_lto=true \
+		-Db_lto=false \
 		-Dsession_tracking=no \
 		-Dsystemd_journal=false \
-		-Dsystemdsystemunitdir=no \
+		-Dsystemdsystemunitdir=/usr/lib/systemd/system \
 		-Dselinux=false \
 		-Dlibaudit=no \
 		-Dfirewalld_zone=false \

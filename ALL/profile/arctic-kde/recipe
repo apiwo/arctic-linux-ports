@@ -1,11 +1,14 @@
 # arctic-kde - KDE Plasma with foot as the terminal and the Arctic colours.
 name=arctic-kde
 version=1.0.0
-release=1
+release=2
 kind=profile
 desc="KDE Plasma with foot and the Arctic colour scheme"
 url="https://github.com/apiwo/arctic-linux"
 license="BSD-2-Clause"
+# foot ships its own /etc/xdg/foot/foot.ini; this profile intentionally
+# overrides it with the Arctic-themed one below.
+replaces="foot"
 depend="plasma-meta foot sddm sddm-arctic-theme arctic-plasma-theme \
 	dolphin kate ark spectacle gwenview okular \
 	pipewire wireplumber ttf-jetbrains-mono noto-fonts noto-fonts-emoji"

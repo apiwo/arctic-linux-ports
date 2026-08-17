@@ -22,6 +22,13 @@ build() {
 	_help=$(./configure --help 2>/dev/null)
 	case "$_help" in *--disable-static*)  _opts="$_opts --disable-static" ;; esac
 	case "$_help" in *--disable-nls*)     _opts="$_opts --disable-nls" ;; esac
+	# --with-cli=no, because configure looks for the symbol "readline" inside
+	# -ledit and Arctic's libedit does not ship that compatibility name, so it
+	# stopped with "No suitable version of libedit found" and no firewall was
+	# ever packaged. What this drops is `nft -i`, the interactive shell; the
+	# rule language, the service and everything /etc/nftables.conf does are
+	# unaffected, which is all an installed system uses.
+	_opts="$_opts --with-cli=no"
 	# shellcheck disable=SC2086
 	./configure $_opts
 	make -j"$JOBS"

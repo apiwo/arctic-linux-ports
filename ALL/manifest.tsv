@@ -315,7 +315,7 @@ base	swayfx	0.5	meson	MIT	wlroots,wayland,libxkbcommon,pango,cairo,json-c,scenef
 base	scenefx	0.3	meson	MIT	wlroots,wayland,pixman	meson,ninja	https://github.com/wlrfx/scenefx	https://github.com/wlrfx/scenefx/archive/refs/tags/{version}.tar.gz	Effects library for wlroots compositors
 base	dwl	0.8	suckless	GPL-3.0-only	wayland,wlroots,libinput,libxkbcommon	bmake	https://codeberg.org/dwl/dwl	https://codeberg.org/dwl/dwl/archive/v{version}.tar.gz	dwm for Wayland
 base	somebar	0.2	meson	MIT	wayland,wlroots,pango,cairo	meson,ninja	https://git.sr.ht/~raphi/somebar	https://git.sr.ht/~raphi/somebar/archive/{version}.tar.gz	Status bar for dwl
-base	dwm	6.6	suckless	MIT	libx11,libxft,libxinerama,freetype,fontconfig	bmake	https://dwm.suckless.org/	https://dl.suckless.org/dwm/dwm-{version}.tar.gz	Dynamic window manager for X
+base	dwm	6.6	suckless	MIT	libx11,libxft,libxinerama,freetype,fontconfig,harfbuzz	bmake	https://dwm.suckless.org/	https://dl.suckless.org/dwm/dwm-{version}.tar.gz	Dynamic window manager for X
 base	dmenu	5.4	suckless	MIT	libx11,libxft,libxinerama,freetype,fontconfig	bmake	https://tools.suckless.org/dmenu/	https://dl.suckless.org/tools/dmenu-{version}.tar.gz	Dynamic menu for X
 base	slstatus	1.1	suckless	ISC	libx11	bmake	https://tools.suckless.org/slstatus/	https://dl.suckless.org/tools/slstatus-{version}.tar.gz	Status monitor for dwm
 base	slock	1.5	suckless	MIT	libx11,libxext,libxrandr,libxcrypt	bmake	https://tools.suckless.org/slock/	https://dl.suckless.org/tools/slock-{version}.tar.gz	Simple X screen locker

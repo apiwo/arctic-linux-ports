@@ -1,7 +1,7 @@
 # arctic-linux-ports
 
 Source recipes for Arctic Linux, organized by repo under `ALL/`. This is the
-real `ports/` tree the build system reads from, and what `alpm ins -s <pkg>`
+real `ports/` tree the build system reads from, and what `alpm add -s <pkg>`
 fetches — one recipe at a time, as `ALL/<repo>/<name>/recipe`.
 
 Recipes are POSIX `/bin/sh`. Most are generated from `manifest.tsv`; a recipe

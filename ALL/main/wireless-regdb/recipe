@@ -1,10 +1,7 @@
 # wireless-regdb - Wireless regulatory database
-# Generated from manifest.tsv by gen-ports.py. Edit the manifest, not this file,
-# unless the package needs something the template cannot express - in which case
-# drop a `recipe.local` beside it and it will be preserved.
 name=wireless-regdb
 version=2026.05.30
-release=1
+release=2
 desc="Wireless regulatory database"
 url="https://git.kernel.org/pub/scm/linux/kernel/git/sforshee/wireless-regdb.git"
 license="ISC"
@@ -13,12 +10,22 @@ makedepend=""
 source="https://kernel.org/pub/software/network/wireless-regdb/wireless-regdb-2026.05.30.tar.xz"
 sha256="SKIP"
 
+# No build step. The default make target regenerates regulatory.db from db.txt,
+# which wants python and the private key the database is signed with - neither
+# of which exists here, and neither of which is needed: the release tarball
+# ships the signed binary database already built. Installing what upstream
+# signed is also the only way the kernel will load it, since it checks the
+# signature against a key compiled into cfg80211.
 build() {
-	cd "wireless-regdb-2026.05.30"
-	make -j"$JOBS" PREFIX=/usr
+	:
 }
 
 package() {
-	cd "wireless-regdb-2026.05.30"
-	make PREFIX=/usr DESTDIR="$pkgdir" install
+	cd "wireless-regdb-$version"
+	# /usr/lib/firmware, not /lib/firmware: Arctic is merged-/usr and this is
+	# where the kernel's firmware loader is pointed.
+	install -Dm644 regulatory.db "$pkgdir/usr/lib/firmware/regulatory.db"
+	install -Dm644 regulatory.db.p7s "$pkgdir/usr/lib/firmware/regulatory.db.p7s"
+	install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$name/LICENSE"
+	install -Dm644 db.txt "$pkgdir/usr/share/$name/db.txt"
 }

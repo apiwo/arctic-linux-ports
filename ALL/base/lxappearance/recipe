@@ -14,6 +14,10 @@ source="https://downloads.sourceforge.net/lxde/lxappearance-0.6.3.tar.xz"
 sha256="SKIP"
 
 build() {
+	# LXDE's GTK code predates clang treating an incompatible pointer
+	# assignment as an error rather than a warning. The assignments are the
+	# usual GTK widget-to-subclass ones and upstream has not moved.
+	export CFLAGS="$CFLAGS -fcommon -Wno-incompatible-pointer-types -Wno-int-conversion"
 	cd "lxappearance-0.6.3"
 	# Not every configure script accepts the same options - sqlite rejects
 	# --disable-nls outright, for instance - so only pass the ones this one
@@ -22,6 +26,9 @@ build() {
 	_help=$(./configure --help 2>/dev/null)
 	case "$_help" in *--disable-static*)  _opts="$_opts --disable-static" ;; esac
 	case "$_help" in *--disable-nls*)     _opts="$_opts --disable-nls" ;; esac
+	# LXDE still defaults to GTK2, which Arctic does not have and is not
+	# going to package. Every one of these builds against GTK3 when asked.
+	case "$_help" in *--with-gtk*) _opts="$_opts --with-gtk=3" ;; esac
 	# shellcheck disable=SC2086
 	./configure $_opts
 	make -j"$JOBS"

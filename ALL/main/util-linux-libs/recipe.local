@@ -1,3 +1,5 @@
-# replaces="toybox" and the release bump that carries it. The template has
-# no field for either, and regenerating this recipe dropped both - the
-# published package kept them, so the recipe no longer built what we shipped.
+# Libraries only, enforced twice: --disable-all-programs in build() and a
+# removal of every binary directory in package(). A full `make install` here
+# shipped util-linux's /bin/login, which links libpam - a library Arctic does
+# not have - over busybox's working login applet, and no installed system
+# could be logged into. The template has no field for either.

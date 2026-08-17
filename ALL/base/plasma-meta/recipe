@@ -1,7 +1,7 @@
 # plasma-meta - KDE Plasma, themed for Arctic. This is what the live ISO runs.
 #
 # Plasma is a big dependency graph; this package installs nothing itself and
-# exists so that "alpm ins plasma-meta" gets you a working desktop.
+# exists so that "alpm add plasma-meta" gets you a working desktop.
 name=plasma-meta
 version=6.5.0
 release=1

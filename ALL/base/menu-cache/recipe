@@ -14,6 +14,10 @@ source="https://downloads.sourceforge.net/lxde/menu-cache-1.1.0.tar.xz"
 sha256="SKIP"
 
 build() {
+	# menu-cache declares its globals in a header without extern, which was
+	# fine when compilers defaulted to -fcommon and is a pile of duplicate
+	# symbols now that they default to -fno-common. Upstream has not moved.
+	export CFLAGS="$CFLAGS -fcommon"
 	cd "menu-cache-1.1.0"
 	# Not every configure script accepts the same options - sqlite rejects
 	# --disable-nls outright, for instance - so only pass the ones this one

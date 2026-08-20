@@ -1,0 +1,19 @@
+# sound-setup - pipewire, wireplumber and alsamixer, wired up to actually
+# start. arctic-sound (the plain meta package) only pulls the dependencies
+# in; this also adds every real user to the audio group, enables the
+# system-level pipewire service, and drops a per-session autostart hook,
+# since pipewire itself is a per-user daemon nothing else on Arctic starts.
+name=sound-setup
+version=1.0.0
+release=1
+desc="PipeWire audio, wired up and started"
+url="https://github.com/apiwo/arctic-linux"
+license="BSD-2-Clause"
+depend="pipewire wireplumber pipewire-pulse alsa-lib alsa-utils"
+makedepend=""
+source="session.sh"
+sha256="SKIP"
+
+package() {
+	install -Dm755 session.sh "$pkgdir/etc/profile.d/50-pipewire-session.sh"
+}

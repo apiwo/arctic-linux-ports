@@ -1,0 +1,14 @@
+# genfstab - write /etc/fstab from the live mount table, before chroot.
+name=genfstab
+version=1.0.0
+release=1
+desc="Write /etc/fstab from the live mount table"
+url="https://github.com/apiwo/arctic-linux"
+license="BSD-2-Clause"
+depend="busybox util-linux"
+source="genfstab"
+sha256="SKIP"
+
+package() {
+	install -Dm755 genfstab "$pkgdir/usr/bin/genfstab"
+}

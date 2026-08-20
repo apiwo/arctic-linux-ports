@@ -1,0 +1,33 @@
+# grub - GRUB2, for BIOS multi-boot alongside something that expects it.
+# Limine is the default bootloader. EFI is Limine-only - GRUB is never
+# wired up there.
+name=grub
+version=2.14
+release=1
+desc="GRUB2 bootloader (BIOS only)"
+url="https://www.gnu.org/software/grub/"
+license="GPL-3.0-or-later"
+depend="glibc"
+makedepend="gmake perl"
+source="https://ftp.gnu.org/gnu/grub/grub-$version.tar.xz"
+sha256="SKIP"
+
+build() {
+	cd "grub-$version"
+	# GRUB's freestanding boot code passes -fno-stack-protector, but
+	# Arctic's ambient CFLAGS (-fstack-protector-strong) lands after it
+	# on the same compile line and wins - the freestanding kernel.exec
+	# then calls __stack_chk_fail with nothing there to provide it:
+	# "undefined symbol: __stack_chk_fail". Unset for this recipe only.
+	unset CFLAGS CXXFLAGS
+	./configure --prefix=/usr --sbindir=/usr/sbin --sysconfdir=/etc \
+		--disable-werror --disable-nls \
+		--disable-grub-mkfont --disable-device-mapper \
+		--with-platform=pc
+	gmake -j"$JOBS"
+}
+
+package() {
+	cd "grub-$version"
+	gmake DESTDIR="$pkgdir" install
+}

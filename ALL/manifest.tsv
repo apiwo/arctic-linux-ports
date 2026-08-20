@@ -15,6 +15,7 @@ main	linux-headers	7.1.3	make	GPL-2.0-only WITH Linux-syscall-note	-	-	https://k
 main	gcc-libs	15.3.0	autotools	GPL-3.0-or-later WITH GCC-exception-3.1	glibc	-	https://gcc.gnu.org/	https://ftp.gnu.org/gnu/gcc/gcc-{version}/gcc-{version}.tar.xz	libstdc++ and libgcc_s runtime only, required by the NVIDIA driver
 main	libglvnd	1.7.0	meson	MIT	glibc	meson,ninja	https://gitlab.freedesktop.org/glvnd/libglvnd	https://gitlab.freedesktop.org/glvnd/libglvnd/-/archive/v{version}/libglvnd-v{version}.tar.gz	GL vendor dispatch, so mesa and NVIDIA can both provide GL
 main	busybox	1.38.0	make	GPL-2.0-only	glibc	-	https://busybox.net/	https://busybox.net/downloads/busybox-{version}.tar.bz2	Init, getty, device manager and network tools
+main	genfstab	1.0.0	make	BSD-2-Clause	busybox,util-linux	-	https://github.com/apiwo/arctic-linux	-	Write /etc/fstab from the live mount table
 main	toybox	0.8.14	make	0BSD	glibc	-	https://landley.net/toybox/	https://landley.net/toybox/downloads/toybox-{version}.tar.gz	The classic Unix commands, BSD licensed
 main	zsh	5.9.2	autotools	MIT-Modern-Variant	glibc,netbsd-curses	clang,lld	https://www.zsh.org/	https://www.zsh.org/pub/zsh-{version}.tar.xz	The Z shell, Arctic's login shell
 main	doas	6.8.2	autotools	ISC	glibc,libxcrypt	clang	https://github.com/Duncaen/OpenDoas	https://github.com/Duncaen/OpenDoas/archive/refs/tags/v{version}.tar.gz	Run commands as another user
@@ -89,6 +90,7 @@ main	networkmanager	1.50.0	meson	LGPL-2.1-or-later GPL-2.0-or-later	glibc,glib,d
 main	wireless-regdb	2026.05.30	make	ISC	-	-	https://git.kernel.org/pub/scm/linux/kernel/git/sforshee/wireless-regdb.git	https://kernel.org/pub/software/network/wireless-regdb/wireless-regdb-{version}.tar.xz	Wireless regulatory database
 main	openssh	10.3p1	autotools	BSD-2-Clause	glibc,libressl,zlib,libedit	-	https://www.openssh.com/	https://cdn.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-{version}.tar.gz	OpenBSD secure shell
 main	limine	12.5.2	make	BSD-2-Clause	glibc	-	https://limine-bootloader.org/	https://github.com/limine-bootloader/limine/releases/download/v{version}/limine-{version}.tar.gz	The Arctic bootloader, BIOS and UEFI
+main	grub	2.14	autotools	GPL-3.0-or-later	glibc	gmake,perl	https://www.gnu.org/software/grub/	https://ftp.gnu.org/gnu/grub/grub-{version}.tar.xz	GRUB2 bootloader (BIOS only)
 main	efibootmgr	18	meson	GPL-2.0-or-later	glibc,efivar	meson,ninja	https://github.com/rhboot/efibootmgr	https://github.com/rhboot/efibootmgr/archive/refs/tags/{version}.tar.gz	Edit UEFI boot entries
 main	efivar	39	make	LGPL-2.1-only	glibc	-	https://github.com/rhboot/efivar	https://github.com/rhboot/efivar/releases/download/{version}/efivar-{version}.tar.bz2	UEFI variable library
 main	alpm	1.0.0	meta	BSD-2-Clause	busybox	-	https://github.com/apiwo/arctic-linux	-	Arctic Linux Package Manager
@@ -584,6 +586,8 @@ main	runit	2.2.0	make	BSD-3-Clause	glibc	-	http://smarden.org/runit/	http://smar
 main	nitro	0.8.1	make	0BSD	glibc	-	https://github.com/leahneukirchen/nitro	https://github.com/leahneukirchen/nitro/archive/refs/tags/v{version}.tar.gz	Tiny init system and process supervisor
 main	dinit	0.19.4	make	Apache-2.0	glibc	-	https://github.com/davmac314/dinit	https://github.com/davmac314/dinit/archive/refs/tags/v{version}.tar.gz	Service manager and init with dependency handling
 profile	arctic-sound	1.0.0	meta	BSD-2-Clause	pipewire,wireplumber,pipewire-pulse,alsa-lib,alsa-utils	-	https://github.com/apiwo/arctic-linux	-	PipeWire, WirePlumber and alsamixer, configured and enabled
+profile	sound-setup	1.0.0	meta	BSD-2-Clause	pipewire,wireplumber,pipewire-pulse,alsa-lib,alsa-utils	-	https://github.com/apiwo/arctic-linux	-	PipeWire audio, wired up and started
+profile	sound-setup-openrc	1.0.0	meta	BSD-2-Clause	pipewire,wireplumber,pipewire-pulse,alsa-lib,alsa-utils,openrc	-	https://github.com/apiwo/arctic-linux	-	PipeWire audio, wired up and started (OpenRC)
 extra	libluv	1.51.0	cmake	Apache-2.0	glibc,libuv,luajit	cmake,ninja	https://github.com/luvit/luv	https://github.com/luvit/luv/releases/download/{version}-0/luv-{version}-0.tar.gz	libuv bindings for Lua, needed by neovim
 profile	lazyvim	1.0.0	meta	MIT	neovim,git	-	https://www.lazyvim.org/	-	Sets up the official LazyVim starter config, on request, per user
 main	signify	33	make	ISC	glibc	-	https://github.com/aperezdc/signify	https://github.com/aperezdc/signify/archive/refs/tags/v{version}.tar.gz	Cryptographically sign and verify files (Ed25519)

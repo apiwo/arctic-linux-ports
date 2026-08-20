@@ -3,14 +3,16 @@
 # instead, so this build keeps the applets busybox is actually best at.
 name=busybox
 version=1.38.0
-release=1
+release=2
 desc="Init, getty, device manager and network tools in one binary"
 url="https://busybox.net/"
 license="GPL-2.0-only"
 depend="glibc"
 source="https://busybox.net/downloads/busybox-$version.tar.bz2
-	arctic.config"
+	arctic.config
+	../../../skel/etc/busybox.conf"
 sha256="SKIP
+	SKIP
 	SKIP"
 
 build() {
@@ -31,9 +33,12 @@ build() {
 
 package() {
 	cd "busybox-$version"
-	install -Dm755 busybox "$pkgdir/usr/bin/busybox"
+	# setuid-root: check_suid() at startup reads /etc/busybox.conf and drops
+	# back to the caller's own uid for anything not explicitly granted there.
+	install -Dm4755 busybox "$pkgdir/usr/bin/busybox"
 	install -Dm755 busybox.static "$pkgdir/usr/lib/arctic/busybox.static"
 	install -Dm644 .config "$pkgdir/usr/share/busybox/config"
+	install -Dm600 ../busybox.conf "$pkgdir/etc/busybox.conf"
 	# Only claim the applets Arctic wants from busybox; toybox takes the rest.
 	for a in init getty mdev sh ash login su passwd chpasswd adduser addgroup \
 		deluser delgroup mount umount swapon swapoff mkswap fsck blkid findfs \

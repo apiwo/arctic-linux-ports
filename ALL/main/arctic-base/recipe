@@ -1,7 +1,18 @@
 # arctic-base - the files that make a system an Arctic system.
+#
+# skel.tar/branding.tar are real committed archives, not fetched from a URL -
+# a real `alpm add -s arctic-base` on someone else's machine only has this
+# recipe and its declared source files, never the monorepo skel/ and
+# branding/ directories live in. That means they go stale the moment skel/
+# changes and nobody remembers to regenerate them - which is exactly what
+# happened for most of this release cycle: mkiso reads skel/ directly for
+# the live ISO, so every fix landed there and nowhere else, and a real
+# arctic-install target kept shipping whatever skel.tar was last frozen at.
+# Run build/gen-skel-tar.sh before every release, not just when someone
+# notices the live ISO and a real install disagree.
 name=arctic-base
 version=1.0.0
-release=1
+release=6
 desc="Arctic Linux base configuration, init scripts and branding"
 url="https://github.com/apiwo/arctic-linux"
 license="BSD-2-Clause"
@@ -11,17 +22,33 @@ sha256="SKIP SKIP"
 backup="etc/inittab etc/profile etc/zsh/zshrc etc/doas.conf etc/alpm/alpm.conf"
 
 package() {
-	# The whole /etc and /usr skeleton: inittab, rc.boot, rc.d, zsh config.
-	tar -xf skel.tar -C "$pkgdir"
-	# Branding: icon theme, wallpapers, boot splash, ascii art.
-	install -d "$pkgdir/usr/share/arctic"
-	tar -xf branding.tar -C "$pkgdir/usr/share/arctic"
-	mkdir -p "$(dirname $pkgdir/usr/bin/arctic-release)"
+	# skel.tar and branding.tar both end in .tar, and alpm-build's own
+	# generic source handling already untars anything matching that suffix
+	# straight into $srcdir before package() ever runs - skel.tar's etc/ and
+	# usr/, and branding.tar's ascii/fastfetch/icons/limine/misc/plasma/
+	# sddm/wallpaper, all landed there already, merged at $srcdir's root.
+	# There is no skel.tar left as a file to re-extract; copy what is
+	# already unpacked instead.
+	#
+	# ${_HOST_CP:-cp}: alpm-build sets _HOST_CP to a cp resolved before
+	# $ALPM_SYSROOT/usr/bin joins PATH; a real `alpm add -s arctic-base`
+	# never sets it, so this is still plain `cp` there. LD_LIBRARY_PATH=
+	# (empty, not unset) on the same line: by the time package() runs,
+	# alpm-build has already pointed LD_LIBRARY_PATH at the sysroot for
+	# build()'s own linking, and a *host* binary loaded against Arctic's
+	# own glibc instead of the host's is exactly as broken as the reverse -
+	# this is what "undefined symbol: __pointer_chk_guard, version
+	# GLIBC_PRIVATE" turned out to mean, from a plain cp/tar.
+	LD_LIBRARY_PATH= "${_HOST_CP:-cp}" -a etc usr "$pkgdir/"
+	LD_LIBRARY_PATH= "${_HOST_INSTALL:-install}" -d "$pkgdir/usr/share/arctic"
+	for _ab_d in ascii fastfetch icons limine misc plasma sddm wallpaper; do
+		[ -e "$_ab_d" ] && LD_LIBRARY_PATH= "${_HOST_CP:-cp}" -a "$_ab_d" "$pkgdir/usr/share/arctic/"
+	done
 cat >"$pkgdir/usr/bin/arctic-release" <<-'SH'
 		#!/bin/sh
 		cat /etc/arctic-release
 SH
-chmod 755 "$pkgdir/usr/bin/arctic-release"
+LD_LIBRARY_PATH= "${_HOST_CHMOD:-chmod}" 755 "$pkgdir/usr/bin/arctic-release"
 	# The greeting shown once, when a fresh install first boots.
-	install -d "$pkgdir/var/lib/arctic"
+	LD_LIBRARY_PATH= "${_HOST_INSTALL:-install}" -d "$pkgdir/var/lib/arctic"
 }

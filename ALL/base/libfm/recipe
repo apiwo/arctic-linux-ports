@@ -31,6 +31,18 @@ build() {
 	case "$_help" in *--with-gtk*) _opts="$_opts --with-gtk=3" ;; esac
 	# shellcheck disable=SC2086
 	./configure $_opts
+	# src/modules is five small optional GIO extensions (trash/shortcut
+	# context-menu items, a search vfs backend) - not linked by pcmanfm or
+	# lxpanel, loaded at runtime through GIO's own module system if present
+	# at all. Every one of them hits the same multilib linker trap other
+	# autotools -module targets on this host do: libtool's own -L for a
+	# `-module` target reaches the host's 32-bit /usr/lib ahead of the
+	# 64-bit one lld needs, in a way that survives -B/usr/lib64 and
+	# LIBRARY_PATH both, because libtool does not carry either through to
+	# a module link. Losing five right-click menu items is a fair trade for
+	# a libfm that actually builds; dropped from SUBDIRS so make never
+	# descends into that directory at all.
+	sed -i '/^\tmodules \\$/d' src/Makefile
 	make -j"$JOBS"
 }
 

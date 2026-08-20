@@ -1,6 +1,6 @@
 # intel-ucode - CPU microcode. Loaded by the bootloader before the kernel.
 name=intel-ucode
-version=20260610
+version=20260812
 release=1
 desc="Microcode update image for Intel CPUs"
 url="https://github.com/intel/Intel-Linux-Processor-Microcode-Data-Files"

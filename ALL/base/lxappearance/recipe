@@ -29,6 +29,7 @@ build() {
 	# LXDE still defaults to GTK2, which Arctic does not have and is not
 	# going to package. Every one of these builds against GTK3 when asked.
 	case "$_help" in *--with-gtk*) _opts="$_opts --with-gtk=3" ;; esac
+	case "$_help" in *--enable-gtk3*) _opts="$_opts --enable-gtk3" ;; esac
 	# shellcheck disable=SC2086
 	./configure $_opts
 	make -j"$JOBS"

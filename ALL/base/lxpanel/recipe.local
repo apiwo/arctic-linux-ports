@@ -1,1 +1,4 @@
-# The GTK3 switch and the warning flags old GTK code needs under clang.
+# --enable-gtk3 added in build(): the template's --with-gtk detection looks
+# for the wrong flag name for this package - it uses --enable-gtk3, not
+# --with-gtk - so it silently built (or tried to) against GTK2, which Arctic
+# does not package.

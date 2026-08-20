@@ -14,11 +14,22 @@ source="https://download.qt.io/official_releases/qt/6.10/6.10.1/submodules/qtsvg
 sha256="SKIP"
 
 build() {
+	# No precompiled header. Qt's PCH TU hits a real libc++ 22 edge case:
+	# <random>'s poisson_distribution.h calls std::abs(double), pulled in by
+	# a using-declaration in libc++'s <cmath> that is a no-op rather than a
+	# hard error when no matching ::abs overload is visible yet at that
+	# point in the PCH's own header order - so the template overload libc++
+	# normally supplies never gets a chance to apply, and the call is left
+	# unresolved. A normal (non-PCH) compile of the same code does not hit
+	# this, because each translation unit's own #include order reaches the
+	# real overloads first. Disabling the PCH is the standard workaround for
+	# this class of PCH-order sensitivity.
 	cmake -S "qtsvg-everywhere-src-6.10.1" -B build -G Ninja \
 		-DCMAKE_INSTALL_PREFIX=/usr \
 		-DCMAKE_INSTALL_LIBDIR=lib \
 		-DCMAKE_BUILD_TYPE=Release \
-		-DBUILD_SHARED_LIBS=ON
+		-DBUILD_SHARED_LIBS=ON \
+		-DCMAKE_DISABLE_PRECOMPILE_HEADERS=ON
 	ninja -C build -j"$JOBS"
 }
 

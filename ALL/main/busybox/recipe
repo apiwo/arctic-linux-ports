@@ -10,7 +10,7 @@ license="GPL-2.0-only"
 depend="glibc"
 source="https://busybox.net/downloads/busybox-$version.tar.bz2
 	arctic.config
-	../../../skel/etc/busybox.conf"
+	busybox.conf"
 sha256="SKIP
 	SKIP
 	SKIP"

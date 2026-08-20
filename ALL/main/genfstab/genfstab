@@ -1,0 +1,71 @@
+#!/bin/sh
+# genfstab <target-root>  -  print an /etc/fstab for whatever is mounted
+# under <target-root> right now, reading /proc/mounts from the caller's
+# own environment (this has to run before chroot, not after - a chroot
+# has no view of the outer mount table without proc bind-mounted first).
+#
+#   genfstab /mnt >> /mnt/etc/fstab
+#
+# shellcheck shell=sh disable=SC2039
+
+set -u
+_t=${1:?usage: genfstab <target-root>}
+
+printf '# Arctic Linux - /etc/fstab\n'
+printf '# <device>\t<mount>\t<type>\t<options>\t<dump>\t<pass>\n'
+
+# Longest paths last so /boot/efi is written after /boot, which is the
+# order mount(8) needs to be able to replay them at boot.
+awk -v t="$_t" '
+	$2 == t            { print $1, "/",                  $3, $4; next }
+	index($2, t"/")==1 { print $1, substr($2, length(t)+1), $3, $4 }
+' /proc/mounts | sort -k2,2 | while read -r dev mnt type opts; do
+	case "$type" in
+	autofs|proc|sysfs|devtmpfs|devpts|tmpfs|cgroup*|securityfs|debugfs|\
+	tracefs|mqueue|hugetlbfs|configfs|fusectl|pstore|bpf|ramfs|squashfs|overlay)
+		continue ;;
+	esac
+	case "$dev" in /dev/*) ;; *) continue ;; esac
+
+	# UUID before PARTUUID: the initramfs resolves root= with busybox
+	# findfs, which only understands LABEL=/UUID=, never PARTUUID=.
+	uuid=$(blkid -s UUID -o value "$dev" 2>/dev/null)
+	if [ -n "$uuid" ]; then
+		spec="UUID=$uuid"
+	else
+		partuuid=$(blkid -s PARTUUID -o value "$dev" 2>/dev/null)
+		spec=${partuuid:+PARTUUID=$partuuid}; spec=${spec:-$dev}
+	fi
+
+	# Keep only the mount options worth persisting. The kernel reports
+	# plenty that are either defaults or meaningless in fstab.
+	keep=""
+	OIFS=$IFS; IFS=,
+	for o in $opts; do
+		case "$o" in
+		rw|ro|noatime|relatime|nodiratime|nosuid|nodev|noexec|discard*|\
+		compress=*|compress-force=*|subvol=*|subvolid=*|space_cache*|\
+		ssd|autodefrag|commit=*|fmask=*|dmask=*|utf8*|iocharset=*|\
+		shortname=*|errors=*|data=*|barrier*|journal_checksum)
+			keep="${keep:+$keep,}$o" ;;
+		esac
+	done
+	IFS=$OIFS
+	[ -n "$keep" ] || keep=defaults
+
+	# fsck pass: root first, other real filesystems after, never for
+	# btrfs (which has no fsck to run at boot) or vfat ESPs.
+	case "$type" in
+	btrfs)     pass=0 ;;
+	vfat)      pass=2 ;;
+	*) [ "$mnt" = / ] && pass=1 || pass=2 ;;
+	esac
+	[ "$mnt" = / ] && [ "$type" = btrfs ] && pass=0
+
+	printf '%s\t%s\t%s\t%s\t0\t%s\n' "$spec" "$mnt" "$type" "$keep" "$pass"
+done
+
+printf 'tmpfs\t/tmp\ttmpfs\trw,nosuid,nodev,size=50%%\t0\t0\n'
+printf 'proc\t/proc\tproc\trw,nosuid,nodev,noexec\t0\t0\n'
+printf 'sysfs\t/sys\tsysfs\trw,nosuid,nodev,noexec\t0\t0\n'
+printf 'devpts\t/dev/pts\tdevpts\trw,nosuid,noexec,gid=5,mode=620\t0\t0\n'
